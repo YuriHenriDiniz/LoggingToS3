@@ -31,7 +31,8 @@ TCP é o padrão atual, já que é confiável, ou seja, mensagens não correm o 
 Porém, dispositivos mais antigos ou mais simples ainda suportam apenas UDP, logo, para manter compatibilidade, resolvi utilizar ambos.
 
 9- Sincronizar com o bucket diariamente ao invés de no final do mês:
-
+Inicialmente, pensei em enviar os logs todo final de mês para o S3, visando economia, já que os logs passariam mais tempo no armazenamento local. Porém, existe a possibilidade de algum erro eventual ocorrer, o que potencialmente impactaria todos os logs do mês. 
+Logo, resolvi rotacionar e enviar todo dia.
 
 10 - LVM vs particionamento tradicional (MBR/GPT):
 LVM permite maior facilidade na hora da expansão, já que posso mover PVs de forma online, além de facilmente expandir LVs para além de um único disco. 
