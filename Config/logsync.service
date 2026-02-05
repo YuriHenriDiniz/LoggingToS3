@@ -1,9 +1,7 @@
 [Unit]
-
 Description="Script que sincroniza logs locais com o Amazon S3"
 
 [Service]
-
 ExecStart="/usr/local/sbin/logsync.sh"
 User=logsync
 Environment="AWS_CONFIG_FILE=/etc/aws/config"
@@ -12,5 +10,4 @@ Environment="S3_BUCKET=campy-logging-bkt"
 Environment="S3_BUCKET_SHORT=campy-logging-bkt-srt"
 
 [Install]
-
 #Iniciada via logsync.timer#

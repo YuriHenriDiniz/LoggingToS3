@@ -3,7 +3,9 @@ set eu -o pipefail
 BASE_DIR="/var/log/rsyslog"
 
 LOCAL_SEVS=("info" "notice")
+
 SHIP_SEVS=("warning" "err" "crit" "alert" "emerg")
+
 SYSLOG_SEVS=("${SHIP_SEVS[@]}" "${LOCAL_SEVS[@]}")
 
 DATE=$(date -d "yesterday" +"%Y-%m-%d")

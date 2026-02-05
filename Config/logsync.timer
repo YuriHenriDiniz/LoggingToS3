@@ -1,13 +1,10 @@
 [Unit]
-
 Description="Inicia o script logsync todo dia"
 
 [Timer]
-
 Unit=/etc/systemd/system/logsync.service
 Persistent=True
 OnCalendar=*-*-* 02:00:00
 
 [Install]
-
 WantedBy=multi-user.target
