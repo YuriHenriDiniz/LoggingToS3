@@ -1,6 +1,7 @@
 # <file system>                         <mount point>    <type>  <options>         <dump>  <pass>
 /dev/mapper/main-root                     /               ext4    errors=remount-ro   0       1
+/dev/mapper/data-log                      /var            ext4    defaults            0       2
 UUID=df2028f7-7549-42a5-a3dc-f7a977cfafc5 /boot           ext4    defaults            0       2
 UUID=0AFA-6DCC                            /boot/efi       vfat    umask=0077          0       1
-/dev/mapper/data-log                      /var            ext4    defaults            0       2
+
 
