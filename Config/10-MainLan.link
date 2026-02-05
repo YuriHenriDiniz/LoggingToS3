@@ -1,0 +1,5 @@
+[Match]
+MACAddress=00:15:5d:0f:83:0e
+
+[Link]
+Name=MainLan

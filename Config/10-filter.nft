@@ -1,0 +1,43 @@
+table ip filter {
+
+	chain input{
+		type filter hook input priority filter;
+		policy drop
+		ct state established,related accept
+		iif lo accept	
+		jump input_service
+		jump input_management
+	}
+	chain input_service{
+		udp dport 514 accept
+		tcp dport 514 accept
+	}
+	chain input_management{
+		ip protocol icmp accept
+		tcp dport 22 accept
+	}
+	chain output{
+		type filter hook output priority filter;
+		policy drop
+		ct state established,related accept
+		oif lo accept
+		jump output_default
+	}
+	chain output_default{
+		udp dport {123, 53} accept
+		tcp dport {80, 443, 53} accept
+		ip protocol icmp accept
+	}
+	chain prerouting{
+		type filter hook prerouting priority filter;
+		policy accept
+		ct state invalid drop
+
+	}
+	chain forward{
+		type filter hook forward priority filter;
+		policy drop
+
+	}
+
+}

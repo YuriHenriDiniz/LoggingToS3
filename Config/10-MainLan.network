@@ -1,0 +1,12 @@
+[Match]
+Name=MainLan
+
+[Network]
+Gateway=192.168.15.1
+DHCP=no
+DNS=8.8.8.8
+IPv6AcceptRA=no
+
+[Address]
+Address=192.168.15.113/24
+
