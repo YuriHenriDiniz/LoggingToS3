@@ -6,8 +6,8 @@ ExecStart="/usr/local/sbin/logsync.sh"
 User=logsync
 Environment="AWS_CONFIG_FILE=/etc/aws/config"
 Environment="AWS_SHARED_CREDENTIALS_FILE=/etc/aws/credentials"
-Environment="S3_BUCKET=campy-logging-bkt"
-Environment="S3_BUCKET_SHORT=campy-logging-bkt-srt"
+Environment="S3_BUCKET=<NOME DO SEU BUCKET>"
+Environment="S3_BUCKET_SHORT=<NOME DO SEGUNDO BUCKET>"
 
 [Install]
 #Iniciada via logsync.timer#
