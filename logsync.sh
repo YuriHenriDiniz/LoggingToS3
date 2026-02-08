@@ -1,27 +1,17 @@
 #!/bin/bash
 set eu -o pipefail
+
 BASE_DIR="/var/log/rsyslog"
-
 LOCAL_SEVS=("info" "notice")
-
 SHIP_SEVS=("warning" "err" "crit" "alert" "emerg")
-
 SYSLOG_SEVS=("${SHIP_SEVS[@]}" "${LOCAL_SEVS[@]}")
-
 DATE=$(date -d "yesterday" +"%Y-%m-%d")
-
 DATE_DIR="${DATE//-//}"
-
 RETENTION_LOCAL_ONLY_DAYS=15
-
 RETENTION_SHIP_LOCAL_DAYS=30
-
 GZIP_LEVEL=6
-
 S3_BUCKET="${S3_BUCKET:-}"
-
 S3_BUCKET_SHORT="${S3_BUCKET_SHORT:-}"
-
 S3_PREFIX="${S3_PREFIX:-rsyslog}"
 
 log() { printf '[%s] %s\n' "$(date -Is)" "$*"; }
