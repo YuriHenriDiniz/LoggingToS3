@@ -1,8 +1,8 @@
 [default]
-region = sa-east-1
+region = <SUA REGIÃO>
 output = json
-credential_process = /etc/aws/aws_signing_helper credential-process --certificate /etc/ssl/certs/srv-log01-s3.crt --private-key /etc/ssl/private/srv-log01-s3.key --profile-arn arn:aws:rolesanywhere:sa-east-1:696192989579:profile/5827afe3-483f-42a7-9fd5-aa1548711db1 --role-arn arn:aws:iam::696192989579:role/RsyslogRolesAnywhereAccess --trust-anchor-arn arn:aws:rolesanywhere:sa-east-1:696192989579:trust-anchor/f3c57b9f-cf77-4276-820e-9929b40b6821 --intermediates /etc/ssl/certs/campy.intermediate.ca.crt
-
+credential_process = /usr/local/bin/aws_signing_helper credential-process --certificate <CAMINHO DO CERTIFICADO DO SERVIDOR> --private-key <CAMINHO DA CHAVE PRIVADA DO SERVIDOR> --profile-arn <ARN DO PROFILE DO ROLES ANYWHERE> --role-arn <ARN DA ROLE DO IAM> --trust-anchor-arn <ARN DA TRUST ARCHOR> --intermediates <CAMINHO DO CERTIFICADO INTERMEDIARIO>
+  
 
 
 
