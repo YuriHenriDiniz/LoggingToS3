@@ -11,8 +11,6 @@ ExecStart=/usr/sbin/rsyslogd -n -iNONE
 StandardOutput=null
 Restart=on-failure
 
-# Increase the default a bit in order to allow many simultaneous
-# files to be monitored, we might need a lot of fds.
 LimitNOFILE=16384
 User=rsyslog
 CapabilityBoundingSet=CAP_BLOCK_SUSPEND CAP_CHOWN CAP_DAC_OVERRIDE CAP_LEASE CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_SYS_ADMIN CAP_SYS_RESOURCE CAP_SYSLOG
