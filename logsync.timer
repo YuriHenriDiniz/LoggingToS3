@@ -2,7 +2,6 @@
 Description="Inicia o logsync periodicamente"
 
 [Timer]
-Unit=/etc/systemd/system/logsync.service
 Persistent=True
 OnCalendar=*-*-* 02:00:00
 
