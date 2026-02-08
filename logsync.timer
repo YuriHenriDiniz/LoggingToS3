@@ -1,5 +1,5 @@
 [Unit]
-Description="Inicia o script logsync todo dia"
+Description="Inicia o logsync periodicamente"
 
 [Timer]
 Unit=/etc/systemd/system/logsync.service
