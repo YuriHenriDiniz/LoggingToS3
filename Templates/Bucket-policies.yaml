@@ -4,10 +4,10 @@ Description: Template para criar as duas bucket policies.
 
 Parameters:
 
-  BucketName01:
+  LoggingBucket:
     Type: String
     Description: Nome do primeiro bucket.
-  BucketName02:
+  LoggingBucketSrt:
     Type: String
     Description: Nome do segundo bucket.
     
@@ -16,7 +16,7 @@ Resources:
   BucketPolicyOne:
       Type: AWS::S3::BucketPolicy
       Properties:
-        Bucket: !Ref BucketName01
+        Bucket: !Ref LoggingBucket
         PolicyDocument:
           Version: "2012-10-17"
           Statement:
@@ -29,16 +29,16 @@ Resources:
                   - !Ref AuditRoleArn
               Action: "s3:*"
               Resource:
-                - !Sub "arn:aws:s3:::${BucketName01}"
-                - !Sub "arn:aws:s3:::${BucketName01}/*"
+                - !Sub "arn:aws:s3:::${LoggingBucket}"
+                - !Sub "arn:aws:s3:::${LoggingBucket}/*"
   
             - Sid: DenyInsecureTransport
               Effect: Deny
               Principal: "*"
               Action: "s3:*"
               Resource:
-                - !Sub "arn:aws:s3:::${BucketName01}"
-                - !Sub "arn:aws:s3:::${BucketName01}/*"
+                - !Sub "arn:aws:s3:::${LoggingBucket}"
+                - !Sub "arn:aws:s3:::${LoggingBucket}/*"
               Condition:
                 Bool:
                   aws:SecureTransport: false
@@ -50,14 +50,14 @@ Resources:
               Action:
                 - s3:PutObject
                 - s3:AbortMultipartUpload
-              Resource: !Sub "arn:aws:s3:::${BucketName01}/*"
+              Resource: !Sub "arn:aws:s3:::${LoggingBucket}/*"
   
             - Sid: AllowRsyslogAccessBkt
               Effect: Allow
               Principal:
                 AWS: !Ref RsyslogRoleArn
               Action: s3:ListBucket
-              Resource: !Sub "arn:aws:s3:::${BucketName01}"
+              Resource: !Sub "arn:aws:s3:::${LoggingBucket}"
   
             - Sid: AllowAuditAccessBkt
               Effect: Allow
@@ -66,7 +66,7 @@ Resources:
               Action:
                 - s3:ListBucket
                 - s3:GetBucketLocation
-              Resource: !Sub "arn:aws:s3:::${BucketName01}"
+              Resource: !Sub "arn:aws:s3:::${LoggingBucket}"
   
             - Sid: AllowAuditAccess
               Effect: Allow
@@ -75,12 +75,12 @@ Resources:
               Action:
                 - s3:GetObject
                 - s3:GetObjectVersion
-              Resource: !Sub "arn:aws:s3:::${BucketName01}/*"
+              Resource: !Sub "arn:aws:s3:::${LoggingBucket}/*"
               
   BucketPolicyTwo:
       Type: AWS::S3::BucketPolicy
       Properties:
-        Bucket: !Ref BucketName02
+        Bucket: !Ref LoggingBucketSrt
         PolicyDocument:
           Version: "2012-10-17"
           Statement:
@@ -93,16 +93,16 @@ Resources:
                   - !Ref AuditRoleArn
               Action: "s3:*"
               Resource:
-                - !Sub "arn:aws:s3:::${BucketName02}"
-                - !Sub "arn:aws:s3:::${BucketName02}/*"
+                - !Sub "arn:aws:s3:::${LoggingBucketSrt}"
+                - !Sub "arn:aws:s3:::${LoggingBucketSrt}/*"
   
             - Sid: DenyInsecureTransport
               Effect: Deny
               Principal: "*"
               Action: "s3:*"
               Resource:
-                - !Sub "arn:aws:s3:::${BucketName02}"
-                - !Sub "arn:aws:s3:::${BucketName02}/*"
+                - !Sub "arn:aws:s3:::${LoggingBucketSrt}"
+                - !Sub "arn:aws:s3:::${LoggingBucketSrt}/*"
               Condition:
                 Bool:
                   aws:SecureTransport: false
@@ -114,14 +114,14 @@ Resources:
               Action:
                 - s3:PutObject
                 - s3:AbortMultipartUpload
-              Resource: !Sub "arn:aws:s3:::${BucketName02}/*"
+              Resource: !Sub "arn:aws:s3:::${LoggingBucketSrt}/*"
   
             - Sid: AllowRsyslogAccessBkt
               Effect: Allow
               Principal:
                 AWS: !Ref RsyslogRoleArn
               Action: s3:ListBucket
-              Resource: !Sub "arn:aws:s3:::${BucketName02}"
+              Resource: !Sub "arn:aws:s3:::${LoggingBucketSrt}"
   
             - Sid: AllowAuditAccessBkt
               Effect: Allow
@@ -130,7 +130,7 @@ Resources:
               Action:
                 - s3:ListBucket
                 - s3:GetBucketLocation
-              Resource: !Sub "arn:aws:s3:::${BucketName02}"
+              Resource: !Sub "arn:aws:s3:::${LoggingBucketSrt}"
   
             - Sid: AllowAuditAccess
               Effect: Allow
@@ -139,7 +139,7 @@ Resources:
               Action:
                 - s3:GetObject
                 - s3:GetObjectVersion
-              Resource: !Sub "arn:aws:s3:::${BucketName02}/*"
+              Resource: !Sub "arn:aws:s3:::${LoggingBucketSrt}/*"
               
 Outputs:
   BucketPolicy01:
