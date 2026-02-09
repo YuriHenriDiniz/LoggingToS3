@@ -15,12 +15,7 @@ Parameters:
 
   TrustedPrincipalArn:
     Type: String
-    Description: >
-      ARN do principal que pode assumir a role.
-      Exemplos:
-      - arn:aws:iam::696192989579:root
-      - arn:aws:iam::696192989579:role/SomeTrustedRole
-      - arn:aws:iam::696192989579:user/SomeTrustedUser
+    Description: ARN do principal que pode assumir a role.
 
   LoggingBucketName:
     Type: String
