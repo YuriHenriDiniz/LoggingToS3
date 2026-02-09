@@ -5,11 +5,11 @@ Description: >
 
 Parameters:
 
-  BucketO1:
+  LoggingBucket:
     Type: String
     Description: Nome do bucket 1
 
-  Bucket02:
+  LoggingBucketSrt:
     Type: String
     Description: Nome do bucket 2
 
@@ -28,7 +28,7 @@ Resources:
   BucketOne:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref Bucket01
+      BucketName: !Ref LoggingBucket
 
       ObjectLockEnabled: true
       ObjectLockConfiguration:
@@ -67,7 +67,7 @@ Resources:
   BucketTwo:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref Bucket02
+      BucketName: !Ref LoggingBucketSrt
 
       ObjectLockEnabled: true
       ObjectLockConfiguration:
