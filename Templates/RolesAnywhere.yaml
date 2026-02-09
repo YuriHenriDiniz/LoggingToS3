@@ -7,34 +7,27 @@ Description: >
 Parameters:
   TrustAnchorName:
     Type: String
-    Default: default-trust-anchor
-    Description: Nome do Trust Anchor (Roles Anywhere)
+    Description: Nome do Trust Anchor.
 
   TrustAnchorPemBundle:
     Type: String
     NoEcho: true
-    Description: >
-      PEM do certificate bundle do Trust Anchor (até ~8000 chars).
-      Ex.: certificado da CA (root/intermediária) em PEM.
+    Description: PEM do certificate bundle do Trust Anchor.
 
   ProfileName:
     Type: String
-    Default: default-rolesanywhere-profile
-    Description: Nome do Profile (Roles Anywhere)
+    Description: Nome do Profile.
 
   X509SanUri:
     Type: String
-    Default: spiffe://default/logging/rsyslog/srv-log
     Description: Valor esperado para aws:PrincipalTag/x509SAN/URI
 
   X509SubjectCN:
     Type: String
-    Default: default rsyslog server
     Description: Valor esperado para aws:PrincipalTag/x509Subject/CN
 
   X509IssuerCN:
     Type: String
-    Default: default CA
     Description: Valor esperado para aws:PrincipalTag/x509Issuer/CN
 
   RoleName:
@@ -47,11 +40,11 @@ Parameters:
     Default: RsyslogS3WritePolicy
     Description: Nome da IAM Managed Policy
 
-  LoggingBucketName:
+  BucketOne:
     Type: String
     Description: Nome do bucket 1
 
-  LoggingSrtBucketName:
+  BucketTwo:
     Type: String
     Description: Nome do bucket 2
 
