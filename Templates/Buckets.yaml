@@ -1,0 +1,112 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: >
+  Dois buckets S3 (versionados, SSE-S3, Object Lock Governance com retenção padrão)
+  + Lifecycle rules (transições/expiração) + BucketPolicies.
+
+Parameters:
+
+  BucketO1:
+    Type: String
+    Description: Nome do bucket 1
+
+  Bucket02:
+    Type: String
+    Description: Nome do bucket 2
+
+  RetentionDays:
+    Type: Number
+    Default: 90
+    MinValue: 1
+    MaxValue: 166
+    ConstraintDescription: >
+      RetentionDays não pode ser maior que 166 dias,
+      pois o BucketTwo expira objetos nesse prazo.
+    Description: Retenção padrão (em dias) do Object Lock em modo GOVERNANCE
+
+Resources:
+
+  BucketOne:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref Bucket01
+
+      ObjectLockEnabled: true
+      ObjectLockConfiguration:
+        ObjectLockEnabled: Enabled
+        Rule:
+          DefaultRetention:
+            Mode: GOVERNANCE
+            Days: !Ref RetentionDays
+
+      VersioningConfiguration:
+        Status: Enabled
+
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+      LifecycleConfiguration:
+        Rules:
+          - Id: CurrentVersion-IA45-DeepArchive165-Expire731
+            Status: Enabled
+            Filter: {} # bucket inteiro
+            Transitions:
+              - StorageClass: STANDARD_IA
+                TransitionInDays: 45
+              - StorageClass: DEEP_ARCHIVE
+                TransitionInDays: 165
+            ExpirationInDays: 731
+
+  BucketTwo:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref Bucket02
+
+      ObjectLockEnabled: true
+      ObjectLockConfiguration:
+        ObjectLockEnabled: Enabled
+        Rule:
+          DefaultRetention:
+            Mode: GOVERNANCE
+            Days: !Ref RetentionDays
+
+      VersioningConfiguration:
+        Status: Enabled
+
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+      LifecycleConfiguration:
+        Rules:
+          - Id: CurrentVersion-IA45-Expire166
+            Status: Enabled
+            Filter: {} # bucket inteiro
+            Transitions:
+              - StorageClass: STANDARD_IA
+                TransitionInDays: 45
+            ExpirationInDays: 166
+
+Outputs:
+  BucketOneOut:
+    Value: !Ref BucketOne
+    Description: Bucket 1
+
+  BucketTwoOut:
+    Value: !Ref BucketTwo
+    Description: Bucket 2
