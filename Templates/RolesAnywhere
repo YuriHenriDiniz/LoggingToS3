@@ -1,13 +1,13 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: >
-  IAM Roles Anywhere: cria Trust Anchor (certificate bundle), Profile,
+  IAM Roles Anywhere: cria Trust Anchor, Profile,
   IAM Role com trust policy baseada em principal tags x509 e SourceArn do TrustAnchor,
-  e uma IAM Managed Policy para acesso a dois buckets S3 (PutObject/ListBucket).
+  e uma IAM Managed Policy para acesso a dois buckets S3.
 
 Parameters:
   TrustAnchorName:
     Type: String
-    Default: campy-trust-anchor
+    Default: default-trust-anchor
     Description: Nome do Trust Anchor (Roles Anywhere)
 
   TrustAnchorPemBundle:
@@ -19,22 +19,22 @@ Parameters:
 
   ProfileName:
     Type: String
-    Default: campy-rolesanywhere-profile
+    Default: default-rolesanywhere-profile
     Description: Nome do Profile (Roles Anywhere)
 
   X509SanUri:
     Type: String
-    Default: spiffe://campy/logging/rsyslog/srv-log01
+    Default: spiffe://default/logging/rsyslog/srv-log
     Description: Valor esperado para aws:PrincipalTag/x509SAN/URI
 
   X509SubjectCN:
     Type: String
-    Default: campy rsyslog server
+    Default: default rsyslog server
     Description: Valor esperado para aws:PrincipalTag/x509Subject/CN
 
   X509IssuerCN:
     Type: String
-    Default: campy intermediate CA
+    Default: default CA
     Description: Valor esperado para aws:PrincipalTag/x509Issuer/CN
 
   RoleName:
@@ -49,11 +49,11 @@ Parameters:
 
   LoggingBucketName:
     Type: String
-    Description: Nome do bucket 1 (ex: campy-logging-bkt)
+    Description: Nome do bucket 1
 
   LoggingSrtBucketName:
     Type: String
-    Description: Nome do bucket 2 (ex: campy-logging-bkt-srt)
+    Description: Nome do bucket 2
 
 Resources:
   TrustAnchor:
