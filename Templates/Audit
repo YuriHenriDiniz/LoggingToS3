@@ -1,0 +1,94 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Cria uma IAM Role de auditoria.
+
+Parameters:
+  RoleName:
+    Type: String
+    Default: AuditRole
+    Description: Nome da role de auditoria
+
+  ManagedPolicyName:
+    Type: String
+    Default: AuditRoleS3Policy
+    Description: Nome da managed policy
+
+  TrustedPrincipalArn:
+    Type: String
+    Description: >
+      ARN do principal que pode assumir a role.
+      Exemplos:
+      - arn:aws:iam::696192989579:root
+      - arn:aws:iam::696192989579:role/SomeTrustedRole
+      - arn:aws:iam::696192989579:user/SomeTrustedUser
+
+  LoggingBucketName:
+    Type: String
+    Description: Nome do bucket de logs (ex: campy-logging-bkt)
+
+  LoggingSrtBucketName:
+    Type: String
+    Description: Nome do bucket SRT (ex: campy-logging-bkt-srt)
+
+Resources:
+  AuditRolePolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Ref ManagedPolicyName
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AuditRolePolicyAllow
+            Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:GetObjectVersion
+            Resource:
+              - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
+              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}/*"
+
+          - Sid: AuditRolePolicyAllowBkt
+            Effect: Allow
+            Action:
+              - s3:ListBucket
+              - s3:GetBucketLocation
+            Resource:
+              - !Sub "arn:aws:s3:::${LoggingBucketName}"
+              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}"
+
+          - Sid: AuditRolePolicyDeny
+            Effect: Deny
+            Action:
+              - s3:PutObject
+              - s3:DeleteObject
+              - s3:DeleteObjectVersion
+              - s3:PutObjectRetention
+              - s3:BypassGovernanceRetention
+              - s3:PutObjectLegalHold
+            Resource:
+              - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
+              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}/*"
+
+  AuditRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Ref RoleName
+      ManagedPolicyArns:
+        - !Ref AuditRolePolicy
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AuditRoleAccess
+            Effect: Allow
+            Principal:
+              AWS: !Ref TrustedPrincipalArn
+            Action: sts:AssumeRole
+
+Outputs:
+  AuditRoleArn:
+    Description: ARN da AuditRole
+    Value: !GetAtt AuditRole.Arn
+
+  AuditRolePolicyArn:
+    Description: ARN da Managed Policy anexada
+    Value: !Ref AuditRolePolicy
