@@ -1,0 +1,150 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: Template para criar as duas bucket policies.
+
+Parameters:
+
+  BucketName01:
+    Type: String
+    Description: Nome do primeiro bucket.
+  BucketName02:
+    Type: String
+    Description: Nome do segundo bucket.
+    
+Resources:
+
+  BucketPolicyOne:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref BucketName01
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: DenyBucketAccess
+              Effect: Deny
+              NotPrincipal:
+                AWS:
+                  - !Ref RootArn
+                  - !Ref RsyslogRoleArn
+                  - !Ref AuditRoleArn
+              Action: "s3:*"
+              Resource:
+                - !Sub "arn:aws:s3:::${BucketName01}"
+                - !Sub "arn:aws:s3:::${BucketName01}/*"
+  
+            - Sid: DenyInsecureTransport
+              Effect: Deny
+              Principal: "*"
+              Action: "s3:*"
+              Resource:
+                - !Sub "arn:aws:s3:::${BucketName01}"
+                - !Sub "arn:aws:s3:::${BucketName01}/*"
+              Condition:
+                Bool:
+                  aws:SecureTransport: false
+  
+            - Sid: AllowRsyslogAccess
+              Effect: Allow
+              Principal:
+                AWS: !Ref RsyslogRoleArn
+              Action:
+                - s3:PutObject
+                - s3:AbortMultipartUpload
+              Resource: !Sub "arn:aws:s3:::${BucketName01}/*"
+  
+            - Sid: AllowRsyslogAccessBkt
+              Effect: Allow
+              Principal:
+                AWS: !Ref RsyslogRoleArn
+              Action: s3:ListBucket
+              Resource: !Sub "arn:aws:s3:::${BucketName01}"
+  
+            - Sid: AllowAuditAccessBkt
+              Effect: Allow
+              Principal:
+                AWS: !Ref AuditRoleArn
+              Action:
+                - s3:ListBucket
+                - s3:GetBucketLocation
+              Resource: !Sub "arn:aws:s3:::${BucketName01}"
+  
+            - Sid: AllowAuditAccess
+              Effect: Allow
+              Principal:
+                AWS: !Ref AuditRoleArn
+              Action:
+                - s3:GetObject
+                - s3:GetObjectVersion
+              Resource: !Sub "arn:aws:s3:::${BucketName01}/*"
+              
+  BucketPolicyTwo:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref BucketName02
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: DenyBucketAccess
+              Effect: Deny
+              NotPrincipal:
+                AWS:
+                  - !Ref RootArn
+                  - !Ref RsyslogRoleArn
+                  - !Ref AuditRoleArn
+              Action: "s3:*"
+              Resource:
+                - !Sub "arn:aws:s3:::${BucketName02}"
+                - !Sub "arn:aws:s3:::${BucketName02}/*"
+  
+            - Sid: DenyInsecureTransport
+              Effect: Deny
+              Principal: "*"
+              Action: "s3:*"
+              Resource:
+                - !Sub "arn:aws:s3:::${BucketName02}"
+                - !Sub "arn:aws:s3:::${BucketName02}/*"
+              Condition:
+                Bool:
+                  aws:SecureTransport: false
+  
+            - Sid: AllowRsyslogAccess
+              Effect: Allow
+              Principal:
+                AWS: !Ref RsyslogRoleArn
+              Action:
+                - s3:PutObject
+                - s3:AbortMultipartUpload
+              Resource: !Sub "arn:aws:s3:::${BucketName02}/*"
+  
+            - Sid: AllowRsyslogAccessBkt
+              Effect: Allow
+              Principal:
+                AWS: !Ref RsyslogRoleArn
+              Action: s3:ListBucket
+              Resource: !Sub "arn:aws:s3:::${BucketName02}"
+  
+            - Sid: AllowAuditAccessBkt
+              Effect: Allow
+              Principal:
+                AWS: !Ref AuditRoleArn
+              Action:
+                - s3:ListBucket
+                - s3:GetBucketLocation
+              Resource: !Sub "arn:aws:s3:::${BucketName02}"
+  
+            - Sid: AllowAuditAccess
+              Effect: Allow
+              Principal:
+                AWS: !Ref AuditRoleArn
+              Action:
+                - s3:GetObject
+                - s3:GetObjectVersion
+              Resource: !Sub "arn:aws:s3:::${BucketName02}/*"
+              
+Outputs:
+  BucketPolicy01:
+    Value: !Ref BucketPolicyOne
+    Description: Identificador da politica.
+  BucketPolicy01:
+    Value: !Ref BucketPolicyTwo
+    Description: Identificador da politica.
