@@ -1,8 +1,7 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Description: >
-  Dois buckets S3 (versionados, SSE-S3, Object Lock Governance com retenção padrão)
-  + Lifecycle rules (transições/expiração) + BucketPolicies.
+  Dois buckets S3 de acordo com o que foi especificado no projeto.
 
 Parameters:
 
@@ -22,7 +21,7 @@ Parameters:
     ConstraintDescription: >
       RetentionDays não pode ser maior que 166 dias,
       pois o BucketTwo expira objetos nesse prazo.
-    Description: Retenção padrão (em dias) do Object Lock em modo GOVERNANCE
+    Description: Retenção padrão do Object Lock em modo GOVERNANCE
 
 Resources:
 
