@@ -1,6 +1,7 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: >
   Dois buckets S3 (versionados, SSE-S3, Object Lock Governance com retenção padrão)
+  + Lifecycle rules (transições/expiração) + BucketPolicies.
 
 Parameters:
   BucketOneName:
@@ -27,6 +28,10 @@ Parameters:
     Type: Number
     Default: 90
     MinValue: 1
+    MaxValue: 166
+    ConstraintDescription: >
+      RetentionDays não pode ser maior que 166 dias,
+      pois o BucketTwo expira objetos nesse prazo.
     Description: Retenção padrão (em dias) do Object Lock em modo GOVERNANCE
 
 Resources:
@@ -35,6 +40,7 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref BucketOneName
+
       ObjectLockEnabled: true
       ObjectLockConfiguration:
         ObjectLockEnabled: Enabled
@@ -56,6 +62,18 @@ Resources:
         BlockPublicPolicy: true
         IgnorePublicAcls: true
         RestrictPublicBuckets: true
+
+      LifecycleConfiguration:
+        Rules:
+          - Id: CurrentVersion-IA45-DeepArchive165-Expire731
+            Status: Enabled
+            Filter: {} # bucket inteiro
+            Transitions:
+              - StorageClass: STANDARD_IA
+                TransitionInDays: 45
+              - StorageClass: DEEP_ARCHIVE
+                TransitionInDays: 165
+            ExpirationInDays: 731
 
   BucketOnePolicy:
     Type: AWS::S3::BucketPolicy
@@ -147,6 +165,16 @@ Resources:
         BlockPublicPolicy: true
         IgnorePublicAcls: true
         RestrictPublicBuckets: true
+
+      LifecycleConfiguration:
+        Rules:
+          - Id: CurrentVersion-IA45-Expire166
+            Status: Enabled
+            Filter: {} # bucket inteiro
+            Transitions:
+              - StorageClass: STANDARD_IA
+                TransitionInDays: 45
+            ExpirationInDays: 166
 
   BucketTwoPolicy:
     Type: AWS::S3::BucketPolicy
