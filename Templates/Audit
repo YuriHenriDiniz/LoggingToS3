@@ -19,11 +19,11 @@ Parameters:
 
   LoggingBucketName:
     Type: String
-    Description: Nome do bucket de logs (ex: campy-logging-bkt)
+    Description: Nome do bucket de logs.
 
   LoggingSrtBucketName:
     Type: String
-    Description: Nome do bucket SRT (ex: campy-logging-bkt-srt)
+    Description: Nome do bucket SRT.
 
 Resources:
   AuditRolePolicy:
