@@ -6,37 +6,20 @@ LOG_FILE="/var/log/lab-deploy.log"
 usage() {
   cat <<'EOF'
 Uso:
-  deploy.sh --repo /caminho/do/repo [--expect-ports "514/tcp,514/udp,6514/tcp,6514/udp"]
+  deploy.sh
 
-Args:
-  --repo           Caminho do repositório local (obrigatório)
-  --expect-ports   Lista CSV de portas/protocolos esperados (opcional)
-                   Default: 514/tcp,514/udp,6514/tcp,6514/udp
+Descrição:
+  Script de deploy idempotente para Debian 13.
+  Deve ser executado como root e rodado a partir do repo clonado (clone & run).
 EOF
 }
 
-REPO_DIR=""
-EXPECT_PORTS_CSV="514/tcp,514/udp,6514/tcp,6514/udp"
-
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --repo) REPO_DIR="${2:-}"; shift 2;;
-    --expect-ports) EXPECT_PORTS_CSV="${2:-}"; shift 2;;
     -h|--help) usage; exit 0;;
     *) echo "Argumento desconhecido: $1" >&2; usage; exit 2;;
   esac
 done
-
-if [[ -z "$REPO_DIR" ]]; then
-  echo "ERRO: --repo é obrigatório." >&2
-  usage
-  exit 2
-fi
-
-if [[ ! -d "$REPO_DIR" ]]; then
-  echo "ERRO: repo não encontrado: $REPO_DIR" >&2
-  exit 2
-fi
 
 mkdir -p "$(dirname "$LOG_FILE")"
 touch "$LOG_FILE"
@@ -44,7 +27,6 @@ chmod 0600 "$LOG_FILE"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 echo "==== Deploy iniciado: $(date -Is) ===="
-echo "Repo: $REPO_DIR"
 echo "Log:  $LOG_FILE"
 
 require_root() {
@@ -133,84 +115,58 @@ check_service_enabled() {
   fi
 }
 
-listening_any_expected_ports() {
-  local csv="$1"
-  local found=1
-
+check_listening_514() {
+  # Verifica se ao menos uma das combinações 514/tcp ou 514/udp está em LISTEN
   if ! have_cmd ss; then
     echo "[WARN] 'ss' não encontrado; pulando validação de portas."
     return 0
   fi
 
-  echo "[..] Validando portas (esperadas): $csv"
+  echo "[..] Validando portas do rsyslog (esperado: 514/tcp e/ou 514/udp)"
   local ss_out
   ss_out="$(ss -lntuH || true)"
 
-  IFS=',' read -r -a items <<<"$csv"
-  for item in "${items[@]}"; do
-    item="$(echo "$item" | tr -d '[:space:]')"
-    [[ -z "$item" ]] && continue
-    local port proto
-    port="${item%/*}"
-    proto="${item#*/}"
+  local ok=1
+  # tcp 514
+  if echo "$ss_out" | awk '$1 ~ /^tcp/ {print $5}' | grep -Eq "(:|\\])514\$"; then
+    echo "[OK] Encontrou escutando TCP 514"
+    ok=0
+  fi
+  # udp 514
+  if echo "$ss_out" | awk '$1 ~ /^udp/ {print $5}' | grep -Eq "(:|\\])514\$"; then
+    echo "[OK] Encontrou escutando UDP 514"
+    ok=0
+  fi
 
-    case "$proto" in
-      tcp)
-        if echo "$ss_out" | awk '$1 ~ /^tcp/ {print $5}' | grep -Eq "(:|\\])${port}\$"; then
-          echo "[OK] Encontrou escutando TCP porta $port"
-          found=0
-        fi
-        ;;
-      udp)
-        if echo "$ss_out" | awk '$1 ~ /^udp/ {print $5}' | grep -Eq "(:|\\])${port}\$"; then
-          echo "[OK] Encontrou escutando UDP porta $port"
-          found=0
-        fi
-        ;;
-      *)
-        echo "[WARN] Protocolo desconhecido em expect-ports: $item"
-        ;;
-    esac
-  done
-
-  if [[ $found -ne 0 ]]; then
-    echo "[ERRO] Não encontrei nenhuma das portas esperadas escutando."
-    echo "Saída ss -lntu:"
+  if [[ $ok -ne 0 ]]; then
+    echo "[ERRO] Não encontrei 514/tcp nem 514/udp escutando."
     ss -lntu || true
     return 1
   fi
-
-  return 0
 }
 
 require_root
 
-# -------------------------
-# Layout esperado do repo
-# -------------------------
+REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$REPO_DIR"
+echo "[..] Repo detectado: $REPO_DIR"
+
 RSYSLOG_DROPIN_SRC="$REPO_DIR/rsyslog/99-lab.conf"
 RSYSLOG_SERVICE_SRC="$REPO_DIR/systemd/rsyslog.service"
 
 AWS_CONFIG_SRC="$REPO_DIR/aws/config"
 AWS_CREDENTIALS_SRC="$REPO_DIR/aws/credentials"
-AWS_SIGNING_HELPER_SRC="$REPO_DIR/aws/aws_signing_helper"   # binário vindo do repo
+AWS_SIGNING_HELPER_SRC="$REPO_DIR/aws/aws_signing_helper"
 
 LOGSYNC_SCRIPT_SRC="$REPO_DIR/logsync/logsync.sh"
 LOGSYNC_SERVICE_SRC="$REPO_DIR/systemd/logsync.service"
 LOGSYNC_TIMER_SRC="$REPO_DIR/systemd/logsync.timer"
 
-# Destino do signing helper (novo)
 AWS_SIGNING_HELPER_DEST="/usr/local/bin/aws_signing_helper"
 
-# -------------------------
-# 1) Pacotes
-# -------------------------
 ensure_pkg "rsyslog"
 ensure_pkg "awscli"
 
-# -------------------------
-# 2) Grupos e usuários
-# -------------------------
 ensure_group "logservices"
 ensure_group "logsync"
 ensure_group "rsyslog"
@@ -218,9 +174,6 @@ ensure_group "rsyslog"
 ensure_user "rsyslog" "rsyslog" "logservices"
 ensure_user "logsync" "rsyslog" "logservices,logsync"
 
-# -------------------------
-# 3) Rsyslog
-# -------------------------
 echo "[..] Configurando rsyslog"
 
 install_file "$RSYSLOG_DROPIN_SRC" "/etc/rsyslog.d/99-lab.conf" "0644" "root" "root"
@@ -236,17 +189,13 @@ daemon_reload
 systemctl enable --now rsyslog
 check_service_active "rsyslog"
 check_service_enabled "rsyslog"
-listening_any_expected_ports "$EXPECT_PORTS_CSV" || exit 1
+check_listening_514
 
-# -------------------------
-# 4) /etc/aws (somente config/credentials) + aws_signing_helper em /usr/local/bin
-# -------------------------
 echo "[..] Configurando /etc/aws + aws_signing_helper"
 
-# /etc/aws com perms finais: root:logsync 0550
 mkdir -p /etc/aws
 chown root:logsync /etc/aws
-chmod 0750 /etc/aws  # temporário pra permitir alterações "limpas" durante deploy
+chmod 0750 /etc/aws  # temporário
 
 install_file "$AWS_CONFIG_SRC" "/etc/aws/config" "0440" "root" "logsync"
 install_file "$AWS_CREDENTIALS_SRC" "/etc/aws/credentials" "0440" "root" "logsync"
@@ -254,13 +203,9 @@ install_file "$AWS_CREDENTIALS_SRC" "/etc/aws/credentials" "0440" "root" "logsyn
 chmod 0550 /etc/aws
 echo "[OK] /etc/aws perms finais: root:logsync 0550"
 
-# aws_signing_helper em /usr/local/bin com root:logsync 0550 (R-X / R-X)
 install_file "$AWS_SIGNING_HELPER_SRC" "$AWS_SIGNING_HELPER_DEST" "0550" "root" "logsync"
 echo "[OK] aws_signing_helper em: $AWS_SIGNING_HELPER_DEST (root:logsync 0550)"
 
-# -------------------------
-# 5) logsync (units + script)
-# -------------------------
 echo "[..] Instalando logsync (script + units)"
 
 VENDOR_DIR="$(systemd_vendor_dir)"
