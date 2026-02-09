@@ -30,21 +30,21 @@ Parameters:
     Type: String
     Description: Valor esperado para aws:PrincipalTag/x509Issuer/CN
 
-  RoleName:
+  RsyslogRole:
     Type: String
     Default: RsyslogRolesAnywhereAccess
     Description: Nome da IAM Role
 
-  ManagedPolicyName:
+  RsyslogRolePolicyName:
     Type: String
     Default: RsyslogS3WritePolicy
     Description: Nome da IAM Managed Policy
 
-  BucketOne:
+  LoggingBucket:
     Type: String
     Description: Nome do bucket 1
 
-  BucketTwo:
+  LoggingBucketSrt:
     Type: String
     Description: Nome do bucket 2
 
@@ -62,7 +62,7 @@ Resources:
   RsyslogS3Policy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
-      ManagedPolicyName: !Ref ManagedPolicyName
+      ManagedPolicyName: !Ref RsyslogRolePolicyName
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -72,21 +72,21 @@ Resources:
               - s3:PutObject
               - s3:AbortMultipartUpload
             Resource:
-              - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
-              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}/*"
+              - !Sub "arn:aws:s3:::${LoggingBucket}/*"
+              - !Sub "arn:aws:s3:::${LoggingBucketSrt}/*"
 
           - Sid: RsyslogAccessBkt
             Effect: Allow
             Action:
               - s3:ListBucket
             Resource:
-              - !Sub "arn:aws:s3:::${LoggingBucketName}"
-              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}"
+              - !Sub "arn:aws:s3:::${LoggingBucket}"
+              - !Sub "arn:aws:s3:::${LoggingBucketSrt}"
 
   RsyslogRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Ref RoleName
+      RoleName: !Ref RsyslogRole
       ManagedPolicyArns:
         - !Ref RsyslogS3Policy
       AssumeRolePolicyDocument:
