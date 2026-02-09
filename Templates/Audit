@@ -11,7 +11,7 @@ Parameters:
   ManagedPolicyName:
     Type: String
     Default: AuditRoleS3Policy
-    Description: Nome da managed policy
+    Description: Nome da managed policy.
 
   TrustedPrincipalArn:
     Type: String
