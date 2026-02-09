@@ -1,0 +1,152 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  IAM Roles Anywhere: cria Trust Anchor (certificate bundle), Profile,
+  IAM Role com trust policy baseada em principal tags x509 e SourceArn do TrustAnchor,
+  e uma IAM Managed Policy para acesso a dois buckets S3 (PutObject/ListBucket).
+
+Parameters:
+  TrustAnchorName:
+    Type: String
+    Default: campy-trust-anchor
+    Description: Nome do Trust Anchor (Roles Anywhere)
+
+  TrustAnchorPemBundle:
+    Type: String
+    NoEcho: true
+    Description: >
+      PEM do certificate bundle do Trust Anchor (até ~8000 chars).
+      Ex.: certificado da CA (root/intermediária) em PEM.
+
+  ProfileName:
+    Type: String
+    Default: campy-rolesanywhere-profile
+    Description: Nome do Profile (Roles Anywhere)
+
+  X509SanUri:
+    Type: String
+    Default: spiffe://campy/logging/rsyslog/srv-log01
+    Description: Valor esperado para aws:PrincipalTag/x509SAN/URI
+
+  X509SubjectCN:
+    Type: String
+    Default: campy rsyslog server
+    Description: Valor esperado para aws:PrincipalTag/x509Subject/CN
+
+  X509IssuerCN:
+    Type: String
+    Default: campy intermediate CA
+    Description: Valor esperado para aws:PrincipalTag/x509Issuer/CN
+
+  RoleName:
+    Type: String
+    Default: RsyslogRolesAnywhereAccess
+    Description: Nome da IAM Role
+
+  ManagedPolicyName:
+    Type: String
+    Default: RsyslogS3WritePolicy
+    Description: Nome da IAM Managed Policy
+
+  LoggingBucketName:
+    Type: String
+    Description: Nome do bucket 1 (ex: campy-logging-bkt)
+
+  LoggingSrtBucketName:
+    Type: String
+    Description: Nome do bucket 2 (ex: campy-logging-bkt-srt)
+
+Resources:
+  TrustAnchor:
+    Type: AWS::RolesAnywhere::TrustAnchor
+    Properties:
+      Name: !Ref TrustAnchorName
+      Enabled: true
+      Source:
+        SourceType: CERTIFICATE_BUNDLE
+        SourceData:
+          X509CertificateData: !Ref TrustAnchorPemBundle
+
+  RsyslogS3Policy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Ref ManagedPolicyName
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: RsyslogAccess
+            Effect: Allow
+            Action:
+              - s3:PutObject
+              - s3:AbortMultipartUpload
+            Resource:
+              - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
+              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}/*"
+
+          - Sid: RsyslogAccessBkt
+            Effect: Allow
+            Action:
+              - s3:ListBucket
+            Resource:
+              - !Sub "arn:aws:s3:::${LoggingBucketName}"
+              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}"
+
+  RsyslogRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Ref RoleName
+      ManagedPolicyArns:
+        - !Ref RsyslogS3Policy
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: RsyslogLoggingBucketAccess
+            Effect: Allow
+            Principal:
+              Service: rolesanywhere.amazonaws.com
+            Action:
+              - sts:AssumeRole
+              - sts:SetSourceIdentity
+              - sts:TagSession
+            Condition:
+              StringEquals:
+                aws:PrincipalTag/x509SAN/URI: !Ref X509SanUri
+                aws:PrincipalTag/x509Subject/CN: !Ref X509SubjectCN
+                aws:PrincipalTag/x509Issuer/CN: !Ref X509IssuerCN
+              ArnEquals:
+                aws:SourceArn: !GetAtt TrustAnchor.TrustAnchorArn
+
+  Profile:
+    Type: AWS::RolesAnywhere::Profile
+    Properties:
+      Name: !Ref ProfileName
+      Enabled: true
+      RoleArns:
+        - !GetAtt RsyslogRole.Arn
+      DurationSeconds: 3600
+      AttributeMappings:
+        - CertificateField: x509SAN
+          MappingRules:
+            - Specifier: URI
+        - CertificateField: x509Subject
+          MappingRules:
+            - Specifier: CN
+        - CertificateField: x509Issuer
+          MappingRules:
+            - Specifier: CN
+
+Outputs:
+  TrustAnchorArn:
+    Description: ARN do Trust Anchor
+    Value: !GetAtt TrustAnchor.TrustAnchorArn
+
+  ProfileArn:
+    Description: ARN do Profile
+    Value: !GetAtt Profile.ProfileArn
+
+  RoleArn:
+    Description: ARN da Role
+    Value: !GetAtt RsyslogRole.Arn
+
+  ManagedPolicyArn:
+    Description: ARN da Managed Policy
+    Value: !Ref RsyslogS3Policy
