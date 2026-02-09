@@ -3,12 +3,12 @@ Description: >
   Cria uma IAM Role de auditoria.
 
 Parameters:
-  RoleName:
+  AuditRole:
     Type: String
     Default: AuditRole
     Description: Nome da role de auditoria.
 
-  ManagedPolicyName:
+  AuditRolePolicy:
     Type: String
     Default: AuditRoleS3Policy
     Description: Nome da managed policy.
@@ -17,11 +17,11 @@ Parameters:
     Type: String
     Description: ARN do principal que pode assumir a role.
 
-  LoggingBucketName:
+  LoggingBucket:
     Type: String
     Description: Nome do bucket de logs.
 
-  LoggingSrtBucketName:
+  LoggingBucketSrt:
     Type: String
     Description: Nome do bucket SRT.
 
