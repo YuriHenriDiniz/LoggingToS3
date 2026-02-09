@@ -6,7 +6,7 @@ Parameters:
   RoleName:
     Type: String
     Default: AuditRole
-    Description: Nome da role de auditoria
+    Description: Nome da role de auditoria.
 
   ManagedPolicyName:
     Type: String
