@@ -1,6 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: >
-  Cria uma IAM Role de auditoria.
+Description: Cria uma IAM Role de auditoria.
 
 Parameters:
   AuditRole:
@@ -29,7 +28,7 @@ Resources:
   AuditRolePolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
-      ManagedPolicyName: !Ref ManagedPolicyName
+      ManagedPolicyName: !Ref AuditRolePolicy
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -39,8 +38,8 @@ Resources:
               - s3:GetObject
               - s3:GetObjectVersion
             Resource:
-              - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
-              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}/*"
+              - !Sub "arn:aws:s3:::${LoggingBucket}/*"
+              - !Sub "arn:aws:s3:::${LoggingBucketSrt}/*"
 
           - Sid: AuditRolePolicyAllowBkt
             Effect: Allow
@@ -48,8 +47,8 @@ Resources:
               - s3:ListBucket
               - s3:GetBucketLocation
             Resource:
-              - !Sub "arn:aws:s3:::${LoggingBucketName}"
-              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}"
+              - !Sub "arn:aws:s3:::${LoggingBucket}"
+              - !Sub "arn:aws:s3:::${LoggingBucketSrt}"
 
           - Sid: AuditRolePolicyDeny
             Effect: Deny
@@ -61,13 +60,13 @@ Resources:
               - s3:BypassGovernanceRetention
               - s3:PutObjectLegalHold
             Resource:
-              - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
-              - !Sub "arn:aws:s3:::${LoggingSrtBucketName}/*"
+              - !Sub "arn:aws:s3:::${LoggingBucket}/*"
+              - !Sub "arn:aws:s3:::${LoggingBucketSrt}/*"
 
   AuditRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Ref RoleName
+      RoleName: !Ref AuditRole
       ManagedPolicyArns:
         - !Ref AuditRolePolicy
       AssumeRolePolicyDocument:
