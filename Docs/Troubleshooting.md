@@ -7,9 +7,16 @@ Dificuldades encontradas durante a realização do projeto
 3- Reduzir os privilegios do daemon do rsyslog.
 
 4- Deixar os nomes do parametros iguais aos logical ids dos recursos nos templates.
+
 5- 
+
 6-
+
 7-
+
 8-
+
 9-
+
 10-
+
