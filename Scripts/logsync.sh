@@ -49,7 +49,7 @@ if [[ -n "$S3_BUCKET" && -n "$S3_BUCKET_SHORT" ]]; then
     	dest="s3://${S3_BUCKET}/${S3_PREFIX}/${sev}/${DATE_DIR}"
     fi
     log "Sync to S3: ${src} -> ${dest} (only *.tar.gz)"
-    aws s3 sync "$src" "$dest" --exclude "*" --include "*.tar.gz"
+    aws s3 sync "$src" "$dest" --exclude "*" --include "*.tar.gz" --profile rsyslog
   done
 else
   log "S3_BUCKET OR S3_BUCKET_SHORT not set; skipping S3 sync. (export S3_BUCKET=... to enable)"
