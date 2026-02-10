@@ -151,16 +151,16 @@ REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_DIR"
 echo "[..] Repo detectado: $REPO_DIR"
 
-RSYSLOG_DROPIN_SRC="$REPO_DIR/rsyslog/99-lab.conf"
-RSYSLOG_SERVICE_SRC="$REPO_DIR/systemd/rsyslog.service"
+RSYSLOG_DROPIN_SRC="$REPO_DIR/rsyslog.conf"
+RSYSLOG_SERVICE_SRC="$REPO_DIR/rsyslog.service"
 
-AWS_CONFIG_SRC="$REPO_DIR/aws/config"
-AWS_CREDENTIALS_SRC="$REPO_DIR/aws/credentials"
-AWS_SIGNING_HELPER_SRC="$REPO_DIR/aws/aws_signing_helper"
+AWS_CONFIG_SRC="$REPO_DIR/config"
+AWS_CREDENTIALS_SRC="$REPO_DIR/credentials"
+AWS_SIGNING_HELPER_SRC="$REPO_DIR/aws_signing_helper"
 
-LOGSYNC_SCRIPT_SRC="$REPO_DIR/logsync/logsync.sh"
-LOGSYNC_SERVICE_SRC="$REPO_DIR/systemd/logsync.service"
-LOGSYNC_TIMER_SRC="$REPO_DIR/systemd/logsync.timer"
+LOGSYNC_SCRIPT_SRC="$REPO_DIR/logsync.sh"
+LOGSYNC_SERVICE_SRC="$REPO_DIR/logsync.service"
+LOGSYNC_TIMER_SRC="$REPO_DIR/logsync.timer"
 
 AWS_SIGNING_HELPER_DEST="/usr/local/bin/aws_signing_helper"
 
@@ -221,3 +221,4 @@ echo "[INFO] logsync.service/.timer instalados, mas NÃO serão habilitados/inic
 echo "==== Deploy concluído com sucesso: $(date -Is) ===="
 echo "Dica: para habilitar depois:"
 echo "  systemctl enable --now logsync.timer"
+
