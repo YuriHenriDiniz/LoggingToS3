@@ -1,0 +1,22 @@
+[
+  {
+    "ParameterKey": "LoggingBucket",
+    "ParameterValue": "campy-logging-bkt"
+  },
+  {
+    "ParameterKey": "LoggingBucketSrt",
+    "ParameterValue": "campy-logging-bkt-srt"
+  },
+  {
+    "ParameterKey": "RootArn",
+    "ParameterValue": "arn:aws:iam::123456789012:root"
+  },
+  {
+    "ParameterKey": "RsyslogRoleArn",
+    "ParameterValue": "arn:aws:iam::123456789012:role/rsyslog-role"
+  },
+  {
+    "ParameterKey": "AuditRoleArn",
+    "ParameterValue": "arn:aws:iam::123456789012:role/audit-role"
+  }
+]
