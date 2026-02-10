@@ -1,4 +1,6 @@
 [default]
+
+[profile rsyslog]
 region = <SUA REGIÃO>
 output = json
 credential_process = /usr/local/bin/aws_signing_helper credential-process \
