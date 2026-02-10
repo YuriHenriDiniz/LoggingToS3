@@ -7,9 +7,22 @@ Parameters:
   LoggingBucket:
     Type: String
     Description: Nome do primeiro bucket.
+    
   LoggingBucketSrt:
     Type: String
     Description: Nome do segundo bucket.
+    
+  RootArn:
+    Type: String
+    Description: ARN da raiz.
+    
+  RsyslogRoleArn:
+    Type: String
+    Description: ARN da role do Rsyslog.
+    
+  AuditRoleArn:
+    Type: String
+    Description: ARN da role de auditoria.
     
 Resources:
 
