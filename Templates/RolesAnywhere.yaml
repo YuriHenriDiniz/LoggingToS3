@@ -11,7 +11,6 @@ Parameters:
 
   TrustAnchorPemBundle:
     Type: String
-    NoEcho: true
     Description: PEM do certificate bundle do Trust Anchor.
 
   ProfileName:
@@ -55,9 +54,9 @@ Resources:
       Name: !Ref TrustAnchorName
       Enabled: true
       Source:
-        SourceType: CERTIFICATE_BUNDLE
         SourceData:
           X509CertificateData: !Ref TrustAnchorPemBundle
+        SourceType: CERTIFICATE_BUNDLE
 
   RsyslogS3Policy:
     Type: AWS::IAM::ManagedPolicy
