@@ -2,11 +2,11 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: Cria uma IAM Role de auditoria.
 
 Parameters:
-  AuditRole:
+  AuditRoleName:
     Type: String
     Description: Nome da role de auditoria.
 
-  AuditRolePolicy:
+  AuditPolicyName:
     Type: String
     Description: Nome da managed policy.
 
@@ -26,7 +26,7 @@ Resources:
   AuditRolePolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
-      ManagedPolicyName: !Ref AuditRolePolicy
+      ManagedPolicyName: !Ref AuditPolicyName
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -64,7 +64,7 @@ Resources:
   AuditRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Ref AuditRole
+      RoleName: !Ref AuditRoleName
       ManagedPolicyArns:
         - !Ref AuditRolePolicy
       AssumeRolePolicyDocument:
