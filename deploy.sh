@@ -176,7 +176,7 @@ ensure_user "logsync" "rsyslog" "logservices,logsync"
 
 echo "[..] Configurando rsyslog"
 
-install_file "$RSYSLOG_DROPIN_SRC" "/etc/rsyslog.d/99-lab.conf" "0644" "root" "root"
+install_file "$RSYSLOG_DROPIN_SRC" "/etc/rsyslog.d/rsyslog.conf" "0644" "root" "root"
 
 mkdir -p /var/log/rsyslog
 chown root:logservices /var/log/rsyslog
@@ -221,4 +221,5 @@ echo "[INFO] logsync.service/.timer instalados, mas NÃO serão habilitados/inic
 echo "==== Deploy concluído com sucesso: $(date -Is) ===="
 echo "Dica: para habilitar depois:"
 echo "  systemctl enable --now logsync.timer"
+
 
