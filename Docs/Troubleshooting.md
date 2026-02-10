@@ -8,13 +8,13 @@ Dificuldades encontradas durante a realização do projeto:
 
 4- Deixar os nomes do parametros iguais aos logical ids dos recursos nos templates.
 
-5- 
+5- AWS Cli não conseguindo localizar o profile corretamente.
 
-6-
+6- Usuario perdendo certos grupos quando alterado.
 
-7-
+7- LVM detectando PV ausente.
 
-8-
+8- 
 
 9-
 
