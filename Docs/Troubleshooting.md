@@ -14,9 +14,9 @@ Dificuldades encontradas durante a realização do projeto:
 
 7- LVM detectando PV ausente.
 
-8- 
+8- Multiplos topics em uma unica action no RouterOS.
 
-9-
+9- 
 
 10-
 
