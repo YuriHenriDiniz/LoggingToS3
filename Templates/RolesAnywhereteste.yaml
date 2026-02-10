@@ -51,7 +51,7 @@ Resources:
       Enabled: true
       Source:
         SourceData:
-          X509CertificateData: >
+          X509CertificateData: |
             -----BEGIN CERTIFICATE-----
             MIIFjjCCA3agAwIBAgIUDTiUeuq7EvG+50Z2OUfVVYrRtygwDQYJKoZIhvcNAQEL
             BQAwUDELMAkGA1UEBhMCQlIxCzAJBgNVBAgMAlNQMQwwCgYDVQQHDANTQk8xDjAM
