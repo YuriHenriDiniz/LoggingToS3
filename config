@@ -10,8 +10,6 @@ credential_process = /usr/local/bin/aws_signing_helper credential-process \
   --role-arn <ARN DA ROLE DO IAM> \
   --trust-anchor-arn <ARN DA TRUST ARCHOR> \
   --intermediates <CAMINHO DO CERTIFICADO INTERMEDIARIO> \
-  
-
 
 
 
