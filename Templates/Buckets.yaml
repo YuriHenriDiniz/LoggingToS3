@@ -13,16 +13,6 @@ Parameters:
     Type: String
     Description: Nome do bucket 2
 
-  RetentionDays:
-    Type: Number
-    Default: 90
-    MinValue: 1
-    MaxValue: 166
-    ConstraintDescription: >
-      RetentionDays não pode ser maior que 166 dias,
-      pois o BucketTwo expira objetos nesse prazo.
-    Description: Retenção padrão do Object Lock em modo GOVERNANCE
-
 Resources:
 
   BucketOne:
@@ -36,7 +26,7 @@ Resources:
         Rule:
           DefaultRetention:
             Mode: GOVERNANCE
-            Days: !Ref RetentionDays
+            Days: 730
 
       VersioningConfiguration:
         Status: Enabled
@@ -75,7 +65,7 @@ Resources:
         Rule:
           DefaultRetention:
             Mode: GOVERNANCE
-            Days: !Ref RetentionDays
+            Days: 165
 
       VersioningConfiguration:
         Status: Enabled
