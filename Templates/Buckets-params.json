@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "LoggingBucket",
+    "ParameterValue": "campy-logging-bkt"
+  },
+  {
+    "ParameterKey": "LoggingBucketSrt",
+    "ParameterValue": "campy-logging-bkt-srt"
+  }
+]
