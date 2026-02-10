@@ -9,10 +9,6 @@ Parameters:
     Type: String
     Description: Nome do Trust Anchor.
 
-  TrustAnchorPemBundle:
-    Type: String
-    Description: PEM do certificate bundle do Trust Anchor.
-
   ProfileName:
     Type: String
     Description: Nome do Profile.
@@ -31,12 +27,10 @@ Parameters:
 
   RsyslogRoleName:
     Type: String
-    Default: RsyslogRolesAnywhereAccess
     Description: Nome da IAM Role
 
   RsyslogRolePolicyName:
     Type: String
-    Default: RsyslogS3WritePolicy
     Description: Nome da IAM Managed Policy
 
   LoggingBucket:
@@ -55,7 +49,8 @@ Resources:
       Enabled: true
       Source:
         SourceData:
-          X509CertificateData: !Ref TrustAnchorPemBundle
+          X509CertificateData: |
+            "INLINE CERTIFICATE"
         SourceType: CERTIFICATE_BUNDLE
 
   RsyslogS3Policy:
