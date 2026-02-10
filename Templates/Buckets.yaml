@@ -56,7 +56,7 @@ Resources:
         Rules:
           - Id: CurrentVersion-IA45-DeepArchive165-Expire731
             Status: Enabled
-            Filter: {}
+            Prefix: ""
             Transitions:
               - StorageClass: STANDARD_IA
                 TransitionInDays: 45
@@ -95,7 +95,7 @@ Resources:
         Rules:
           - Id: CurrentVersion-IA45-Expire166
             Status: Enabled
-            Filter: {}
+            Prefix: ""
             Transitions:
               - StorageClass: STANDARD_IA
                 TransitionInDays: 45
