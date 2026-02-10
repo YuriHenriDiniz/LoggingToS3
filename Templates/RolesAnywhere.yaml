@@ -30,7 +30,7 @@ Parameters:
     Type: String
     Description: Valor esperado para aws:PrincipalTag/x509Issuer/CN
 
-  RsyslogRole:
+  RsyslogRoleName:
     Type: String
     Default: RsyslogRolesAnywhereAccess
     Description: Nome da IAM Role
@@ -86,7 +86,7 @@ Resources:
   RsyslogRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Ref RsyslogRole
+      RoleName: !Ref RsyslogRoleName
       ManagedPolicyArns:
         - !Ref RsyslogS3Policy
       AssumeRolePolicyDocument:
