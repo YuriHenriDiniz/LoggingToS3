@@ -4,12 +4,10 @@ Description: Cria uma IAM Role de auditoria.
 Parameters:
   AuditRole:
     Type: String
-    Default: AuditRole
     Description: Nome da role de auditoria.
 
   AuditRolePolicy:
     Type: String
-    Default: AuditRoleS3Policy
     Description: Nome da managed policy.
 
   TrustedPrincipalArn:
