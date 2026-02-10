@@ -78,7 +78,6 @@ ensure_user() {
 }
 
 install_file() {
-  # install_file SRC DEST MODE OWNER GROUP
   local src="$1" dest="$2" mode="$3" owner="$4" group="$5"
   [[ -f "$src" ]] || { echo "ERRO: arquivo não encontrado: $src" >&2; exit 1; }
   mkdir -p "$(dirname "$dest")"
@@ -116,7 +115,6 @@ check_service_enabled() {
 }
 
 check_listening_514() {
-  # Verifica se ao menos uma das combinações 514/tcp ou 514/udp está em LISTEN
   if ! have_cmd ss; then
     echo "[WARN] 'ss' não encontrado; pulando validação de portas."
     return 0
@@ -127,12 +125,10 @@ check_listening_514() {
   ss_out="$(ss -lntuH || true)"
 
   local ok=1
-  # tcp 514
   if echo "$ss_out" | awk '$1 ~ /^tcp/ {print $5}' | grep -Eq "(:|\\])514\$"; then
     echo "[OK] Encontrou escutando TCP 514"
     ok=0
   fi
-  # udp 514
   if echo "$ss_out" | awk '$1 ~ /^udp/ {print $5}' | grep -Eq "(:|\\])514\$"; then
     echo "[OK] Encontrou escutando UDP 514"
     ok=0
