@@ -1,0 +1,23 @@
+[
+  {
+    "ParameterKey": "AuditRoleName",
+    "ParameterValue": "audit-role"
+  },
+  {
+    "ParameterKey": "AuditPolicyName",
+    "ParameterValue": "audit-policy"
+  },
+  {
+    "ParameterKey": "TrustedPrincipalArn",
+    "ParameterValue": "arn:aws:iam::123456789012:root"
+  },
+  {
+    "ParameterKey": "LoggingBucket",
+    "ParameterValue": "campy-logging-bkt"
+  },
+  {
+    "ParameterKey": "LoggingBucketSrt",
+    "ParameterValue": "campy-logging-bkt-srt"
+  }
+]
+
