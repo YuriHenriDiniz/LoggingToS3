@@ -158,6 +158,6 @@ Outputs:
   BucketPolicy01:
     Value: !Ref BucketPolicyOne
     Description: Identificador da politica.
-  BucketPolicy01:
+  BucketPolicy02:
     Value: !Ref BucketPolicyTwo
     Description: Identificador da politica.
