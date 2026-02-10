@@ -1,7 +1,13 @@
 [default]
 region = <SUA REGIÃO>
 output = json
-credential_process = /usr/local/bin/aws_signing_helper credential-process --certificate <CAMINHO DO CERTIFICADO DO SERVIDOR> --private-key <CAMINHO DA CHAVE PRIVADA DO SERVIDOR> --profile-arn <ARN DO PROFILE DO ROLES ANYWHERE> --role-arn <ARN DA ROLE DO IAM> --trust-anchor-arn <ARN DA TRUST ARCHOR> --intermediates <CAMINHO DO CERTIFICADO INTERMEDIARIO>
+credential_process = /usr/local/bin/aws_signing_helper credential-process \
+  --certificate <CAMINHO DO CERTIFICADO DO SERVIDOR> \ 
+  --private-key <CAMINHO DA CHAVE PRIVADA DO SERVIDOR> \ 
+  --profile-arn <ARN DO PROFILE DO ROLES ANYWHERE> \ 
+  --role-arn <ARN DA ROLE DO IAM> \
+  --trust-anchor-arn <ARN DA TRUST ARCHOR> \
+  --intermediates <CAMINHO DO CERTIFICADO INTERMEDIARIO> \
   
 
 
