@@ -66,5 +66,5 @@ Decisões em relação à segurança tomadas durante o desenvolvimento estão do
 ## Referências
 
 - AWS IAM Roles Anywhere – documentação oficial (https://docs.aws.amazon.com/rolesanywhere/)
-- Rsyslog Documentation - documentação oficial (https://www.rsyslog.com/doc/index.html)
+- Rsyslog Documentation – documentação oficial (https://www.rsyslog.com/doc/index.html)
 - RFC 5424 – The Syslog Protocol (https://datatracker.ietf.org/doc/html/rfc5424)
