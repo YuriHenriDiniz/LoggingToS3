@@ -27,10 +27,10 @@ testar.
 
 ## Deploy
 
-- Clone o repositorio
-- Edite o arquivo rsyslog.conf inserindo o IP que será utilizado
-- Execute o logsync.sh
-- Gere o certificado do servidor
+- Execute `git clone` passando a URL deste repositorio.
+- Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
+- Execute o `logsync.sh`.
+- Gere o certificado da CA e do servidor Rsyslog.
 - Execute os templates cloudformation na ordem indicada abaixo:
 
   - `Bucket.yaml`
