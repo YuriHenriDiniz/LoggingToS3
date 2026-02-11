@@ -35,3 +35,6 @@ Entre elas:
 ## Troubleshooting
 
 ## Segurança
+
+## Referências
+
