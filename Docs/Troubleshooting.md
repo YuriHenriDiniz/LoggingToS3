@@ -29,7 +29,7 @@ o aws cli nao consegue identificar a secao do perfil dentro do config, voce tem 
 
 Enquanto configurava os grupos de um usuario queria coloca-lo no grupo ssh_users para poder acessar o servidor via ssh e tambem no grupo audit_users para que pudesse ter acesso aos arquivos de log do servidor.
 Porem nao tinha configurado os dois na criacao do usuario logo executei o comando usermod para poder modificar os grupos do usuario. Porem, quando testei as permissoes do usuario ele simplesmente nao fazia mais parte
-do grupo ssh_users ou seja conseguia conectar via ssh. 
+do grupo ssh_users ou seja nao conseguia conectar via ssh. Acabou que executei o usermod sei a flag -a que faz com que os grupos que voce passa pelo comando sao adicionados e nao redefinem o conjunto de grupos suplementares. 
 
 7- LVM detectando PV ausente.
 
