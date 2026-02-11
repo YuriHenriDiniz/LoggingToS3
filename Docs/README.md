@@ -40,7 +40,7 @@ e faça o build no seu ambiente.
 - Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
 - Execute o `logsync.sh`.
 - Gere o certificado da CA e do servidor Rsyslog.
-- Execute os templates cloudformation na ordem indicada abaixo:
+- Execute os templates CloudFormation na ordem indicada abaixo:
 
   - `Bucket.yaml`
   - `AuditRole.yaml`
