@@ -1,6 +1,6 @@
 # Hybrid Logging Lab – Rsyslog + S3 + IAM Roles Anywhere
 
-Projeto de laboratório simulando ambiente híbrido on-premises + AWS
+Projeto educacional de laboratório simulando ambiente híbrido on-premises + AWS
 com coleta centralizada de logs e arquivamento seguro no S3.
 
 ## Arquitetura
@@ -17,8 +17,7 @@ com coleta centralizada de logs e arquivamento seguro no S3.
 
 ## Objetivo
 
-O objetivo desse projeto é configurar, simular e documentar um ambiente onde logs são, atraves de um servidor de logs, coletados, organizados e retidos localmente e posteriormente enviados para buckets do amazon s3. Tendo uma politica de retenção local e de arquivamento definida conforme questoes de criticidade, utilidade e volume. O projeto inclui um script de deploy e tambem templates cloudformation que recriam o ambiente para quem quiser
-testar.
+O objetivo desse projeto é configurar, simular e documentar um ambiente onde logs são, atraves de um servidor de logs, coletados, organizados e retidos localmente e posteriormente enviados para buckets do amazon s3. Tendo uma politica de retenção local e de arquivamento definida conforme questoes de criticidade, utilidade e volume. O projeto inclui um script de deploy e tambem templates cloudformation que recriam o ambiente para quem quiser testar.
 
 ## Tecnologias utilizadas
 
