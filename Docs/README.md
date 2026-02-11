@@ -18,7 +18,7 @@ com coleta centralizada de logs e arquivamento seguro no S3.
 ## Decisões Técnicas
 
 As principais decisões de arquitetura estão documentadas em
-[Decisions](Docs/Decisions.md).
+[Decisions.md](Decisions.md).
 
 Entre elas:
 
