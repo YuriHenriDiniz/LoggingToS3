@@ -29,6 +29,8 @@ o aws cli nao consegue identificar a secao do perfil dentro do config, voce tem 
 
 7- LVM detectando PV ausente.
 
+Durante o projeto decidi adicionar mais discos virtuais para simular melhor um ambiente real. Tive que rearranjar o layout do armazenamento removendo algumas particoes/pvs que tinha criado. Porem, nesse processo acabei que removi as particoes antes de remover os PVs. Deixando o VG em questao inconsistente. Removi os PVs usando o pvremove e restaurei a consistencia do VG utilizando
+
 8- Multiplos topics em uma unica action no RouterOS.
 
 No RouterOS voce para configura logging de forma a definir quais eventos sao encaminhados para o disco, quais ficam apenas no buffer da memoria, quais vao para o console e quais sao encaminhados para um servidor de log remoto. Esse eventos sao divididos em Topics e para cada Action voce pode definir um ou mais Topics, porem quando utilizei mais do que um topic em uma mesma action simplesmente parou de encaminhar para o servidor de logs, investiguei entao a documentacao porem ela nao diz nada sobre isso em especifico, logo decide simplesmente criar uma action para cada topics ja que os topics que usaria seriam apenas alguns.
