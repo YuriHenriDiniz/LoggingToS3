@@ -1,4 +1,4 @@
-Dificuldades encontradas durante a realização do projeto:
+# Dificuldades encontradas durante a realização do projeto:
 
 1- RouterOS do roteador inicializa porém para de enviar logs para o servidor sem motivo aparente.
 Durante os testes percebi que quando iniciava o Roteador ele parava de enviar logs para o Rsyslog. Pelo que 
