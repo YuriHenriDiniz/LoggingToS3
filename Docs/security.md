@@ -15,4 +15,7 @@ No projeto existe uma limitação de se usar um servidor on-premisse ou seja o R
 suportado. Inicialmente pensei em utilizar um IAM User tradicional com access-key, porém utiliza-lo não seria recomendado do ponto de vista de segurança e tambem por questoes de gerenciamento ja que não a rotação de credenciais.
 Já o RolesAnywhere faz as mesmas coisas que uma IAM Role normal faz mas com um porém, permite a autenticação de servidores on-premisse, o que é perfeito para o caso apresentado nesse projeto.
 
-##
+## Uso da AuditRole
+Configurei uma Role auditoria voltado para usuarios que realizam auditorias e precisem acessar os logs armazenados nos buckets. Obviamente, configurei as permissoes para serem limitadas a apenas leitura, sem poder realizar
+qualquer tipo de alteração ferindo assim o principio da imutabilidade desses logs. O uso de roles permite credenciais temporarias o que melhora a segurnaça, alem de facilitar auditoria dos acessos, voce consegue saber qual
+usuario assumiu qual role em qual momento.
