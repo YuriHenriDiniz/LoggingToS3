@@ -27,7 +27,10 @@ testar.
 
 ## Deploy
 
-Inicialmente clone o repositorio com git clone
+- Clone o repositorio.
+- Edite o arquivo rsyslog.conf inserindo o IP que será utilizado.
+- Execute o logsync.sh
+  
 
 ## Decisões Técnicas
 
