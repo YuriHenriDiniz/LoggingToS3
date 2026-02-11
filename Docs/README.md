@@ -27,6 +27,7 @@ testar.
 
 ## Deploy
 
+### Passo a passo
 - Execute `git clone` passando a URL deste repositorio.
 - Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
 - Execute o `logsync.sh`.
@@ -38,7 +39,7 @@ testar.
   - `RolesAnywhere.yaml`
   - `Bucket-policies.yaml`
 
-- Modifique o config passando os caminhos corretos e os ARNs
+- Modifique o `config` passando os caminhos corretos e os ARNs
   
 
 ## Decisões Técnicas
