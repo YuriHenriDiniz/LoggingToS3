@@ -17,6 +17,10 @@ com coleta centralizada de logs e arquivamento seguro no S3.
 
 ## Objetivo
 
+## Tecnologias utilizadas
+
+## Deploy
+
 ## Decisões Técnicas
 
 As principais decisões de arquitetura estão documentadas em
@@ -27,3 +31,7 @@ Entre elas:
 - Uso de IAM Roles Anywhere ao invés de Access Keys
 - Uso de systemd timer ao invés de cron
 - Separação de buckets para retenção e staging
+
+## Troubleshooting
+
+## Segurança
