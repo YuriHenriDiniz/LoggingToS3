@@ -30,7 +30,9 @@ testar.
 - Clone o repositorio
 - Edite o arquivo rsyslog.conf inserindo o IP que será utilizado
 - Execute o logsync.sh
-- 
+- Gere o certificado do servidor
+- Execute os templates cloudformation na ordem indicada
+- Modifique o config passando os caminhos corretos e os ARNs
   
 
 ## Decisões Técnicas
