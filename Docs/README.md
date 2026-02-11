@@ -15,6 +15,8 @@ com coleta centralizada de logs e arquivamento seguro no S3.
   - Trust Anchor
   - Bucket Policies
 
+## Objetivo
+
 ## Decisões Técnicas
 
 As principais decisões de arquitetura estão documentadas em
