@@ -17,7 +17,7 @@ com coleta centralizada de logs e arquivamento seguro no S3.
 
 ## Objetivo
 
-O objetivo desse projeto é configurar, simular e documentar um ambiente onde logs são, atraves de um servidor de logs, coletados, organizados e retidos localmente e posteriormente enviados para buckets do amazon s3. Tendo uma politica de retenção local e de arquivamento definida conforme questoes de criticidade, utilidade e volume. O projeto inclui um script de deploy e tambem templates cloudformation que recriam o ambiente para quem quiser testar.
+O objetivo desse projeto é configurar, simular e documentar um ambiente onde logs são, através de um servidor de logs, coletados, organizados e retidos localmente e posteriormente enviados para buckets do Amazon S3. Tendo uma política de retenção local e de arquivamento definida conforme questões de criticidade, utilidade e volume. O projeto inclui um script de deploy e também templates CloudFormation que recriam o ambiente para quem quiser testar.
 
 ## Tecnologias utilizadas
 
@@ -25,14 +25,11 @@ O objetivo desse projeto é configurar, simular e documentar um ambiente onde lo
 
 ### Considerações:
 
-O projeto foi realizado utilizando Debian 13 Trixie e o aws_signing_helper presente no repositorio foi
-compilado para essa versão. O binário já está compilado aqui por conveniencia, porem caso encontre algum
-problema recomendo acessar o repositorio [Oficial](https://github.com/aws/rolesanywhere-credential-helper/tree/main)
-e faça o build no seu ambiente.
+O projeto foi realizado utilizando Debian 13 Trixie e o aws_signing_helper presente no repositório foi compilado para essa versão. O binário já está compilado aqui por conveniência, porém, caso encontre algum problema, recomendo acessar o repositório [Oficial](https://github.com/aws/rolesanywhere-credential-helper/tree/main) e realizar o build no seu ambiente.
 
 ### Passo a passo:
 
-- Execute `git clone` passando a URL deste repositorio.
+- Execute `git clone` passando a URL deste repositório.
 - Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
 - Execute o `logsync.sh`.
 - Gere o certificado da CA e do servidor Rsyslog.
@@ -63,7 +60,7 @@ Erros reais encontrados durante o desenvolvimento estão documentados em
 
 ## Segurança
 
-Decisões em relação a segurança tomadas durante o desenvolvimento estão documentadas em
+Decisões em relação à segurança tomadas durante o desenvolvimento estão documentadas em
 [Security.md](Security.md).
 
 ## Referências
