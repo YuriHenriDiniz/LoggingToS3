@@ -31,11 +31,13 @@ testar.
 - Edite o arquivo rsyslog.conf inserindo o IP que será utilizado
 - Execute o logsync.sh
 - Gere o certificado do servidor
-- Execute os templates cloudformation na ordem indicada
+- Execute os templates cloudformation na ordem indicada abaixo:
+
   - `Bucket.yaml`
   - `AuditRole.yaml`
   - `RolesAnywhere.yaml`
   - `Bucket-policies.yaml`
+
 - Modifique o config passando os caminhos corretos e os ARNs
   
 
