@@ -31,7 +31,8 @@ testar.
 
 O projeto foi realizado utilizando Debian 13 Trixie e o aws_signing_helper presente no repositorio foi
 compilado para essa versão. O binário já está compilado aqui por conveniencia, porem caso encontre algum
-problema recomendo acessar o repositorio [Oficial](https://github.com/aws/rolesanywhere-credential-helper/tree/main).
+problema recomendo acessar o repositorio [Oficial](https://github.com/aws/rolesanywhere-credential-helper/tree/main)
+e faça o build no seu ambiente.
 
 ### Passo a passo
 
