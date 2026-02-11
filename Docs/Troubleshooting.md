@@ -27,6 +27,10 @@ o aws cli nao consegue identificar a secao do perfil dentro do config, voce tem 
 
 6- Usuario perdendo certos grupos quando alterado.
 
+Enquanto configurava os grupos de um usuario queria coloca-lo no grupo ssh_users para poder acessar o servidor via ssh e tambem no grupo audit_users para que pudesse ter acesso aos arquivos de log do servidor.
+Porem nao tinha configurado os dois na criacao do usuario logo executei o comando usermod para poder modificar os grupos do usuario. Porem, quando testei as permissoes do usuario ele simplesmente nao fazia mais parte
+do grupo ssh_users ou seja conseguia conectar via ssh. 
+
 7- LVM detectando PV ausente.
 
 Durante o projeto decidi adicionar mais discos virtuais para simular melhor um ambiente real. Tive que rearranjar o layout do armazenamento removendo algumas particoes/pvs que tinha criado. Porem, nesse processo acabei que removi as particoes antes de remover os PVs. Deixando o VG em questao inconsistente. Removi os PVs usando o pvremove e restaurei a consistencia do VG utilizando
