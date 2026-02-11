@@ -22,7 +22,7 @@ Estava com problemas em fazer com que o script logsync.sh, que faz uso do AWS CL
 
 ## Usuario perdendo certos grupos quando alterado.
 
-Enquanto configurava os grupos de um usuário, queria colocá-lo no grupo ssh_users para poder acessar o servidor via ssh e também no grupo audit_users para que pudesse ter acesso aos arquivos de log do servidor. Porém, não tinha configurado os dois na criação do usuário, logo, executei o comando usermod para poder modificar os grupos do usuário. Porém, quando testei as permissões do usuário, ele simplesmente não fazia mais parte do grupo ssh_users, ou seja, não conseguia conectar via ssh. Acabou que executei o usermod com a flag -a, que faz com que os grupos que você passa pelo comando sejam adicionados e não redefinam o conjunto de grupos suplementares. 
+Enquanto configurava os grupos de um usuário, queria colocá-lo no grupo ssh_users para poder acessar o servidor via ssh e também no grupo audit_users para que pudesse ter acesso aos arquivos de log do servidor. Porém, não tinha configurado os dois na criação do usuário, logo, executei o comando usermod para poder modificar os grupos do usuário. Porém, quando testei as permissões do usuário, ele simplesmente não fazia mais parte do grupo ssh_users, ou seja, não conseguia conectar via ssh. Acabou que executei o usermod sem a flag -a, que faz com que os grupos que você passa pelo comando sejam adicionados e não redefinam o conjunto de grupos suplementares. 
 
 ## LVM detectando PV ausente.
 
