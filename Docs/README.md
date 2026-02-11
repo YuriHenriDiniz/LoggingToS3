@@ -58,7 +58,13 @@ Entre elas:
 
 ## Troubleshooting
 
+Erros reais encontrados durante o desenvolvimento estão documentados em
+[troubleshooting.md](troubleshooting.md).
+
 ## Segurança
+
+Decisões em relação a segurança tomadas durante o desenvolvimento estão documentadas em
+[Security.md](Security.md).
 
 ## Referências
 
