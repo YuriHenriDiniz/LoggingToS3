@@ -32,7 +32,7 @@ testar.
 - Execute o logsync.sh
 - Gere o certificado do servidor
 - Execute os templates cloudformation na ordem indicada
-- - Bucket.yaml
+  - Bucket.yaml
   - AuditRole.yaml
   - RolesAnywhere.yaml
   - Bucket-policies.yaml
