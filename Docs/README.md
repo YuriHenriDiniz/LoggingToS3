@@ -27,7 +27,13 @@ testar.
 
 ## Deploy
 
+### Requisitos e considerações
+
+O projeto foi realizado utilizando Debian 13 Trixie e o aws_signing_helper presente no repositorio foi
+compilado para essa versão.
+
 ### Passo a passo
+
 - Execute `git clone` passando a URL deste repositorio.
 - Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
 - Execute o `logsync.sh`.
@@ -40,7 +46,6 @@ testar.
   - `Bucket-policies.yaml`
 
 - Modifique o `config` passando os caminhos corretos e os ARNs
-  
 
 ## Decisões Técnicas
 
