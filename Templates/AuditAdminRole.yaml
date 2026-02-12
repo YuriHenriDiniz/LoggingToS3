@@ -17,4 +17,7 @@ Resources:
     AuditAdminRole:
     Type: AWS::IAM::Role
     Properties:
-      TrustPolicy
+      RoleName: !Ref AuditAdminRoleName
+      ManagedPolicyArns:
+        - !Ref AuditAdminRolePolicy
+      
