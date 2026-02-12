@@ -19,38 +19,40 @@ Parameters:
     ManagedPolicyName:
        Type: string
        Description: nome da politica anexada a role.
+       
 Resources:
     AuditAdminRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: !Ref AuditAdminRoleName
-      ManagedPolicyArns:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: !Ref AuditAdminRoleName
+        ManagedPolicyArns:
         - !Ref AuditRoleManagedPolicy
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
           - Sid: AuditAdminRoleTrust
             Effect: Allow
             Principal: 
                AWS: !Ref TrustedIdentityArn
             Actions:
             - sts:AssumeRole
+            
     AuditRoleManagedPolicy:
-    Type: AWS::IAM::ManagedPolicy
-    Properties:
-       ManagedPolicyName: !Ref ManagedPolicyName
-       PolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-          - Sid: AuditRoleManagedPolicy
-            Effect: Allow
-            Actions:
-            - s3:*
-            Resources:
-            - !Sub "arn:aws:s3:::${LoggingBucketName}"
-            - !Sub "arn:aws:s3:::${LoggingBucketSrtName}"
-            - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
-            - !Sub "arn:aws:s3:::${LoggingBucketSrtName}/*"
+      Type: AWS::IAM::ManagedPolicy
+      Properties:
+         ManagedPolicyName: !Ref ManagedPolicyName
+         PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+            - Sid: AuditRoleManagedPolicy
+              Effect: Allow
+              Actions:
+              - s3:*
+              Resources:
+              - !Sub "arn:aws:s3:::${LoggingBucketName}"
+              - !Sub "arn:aws:s3:::${LoggingBucketSrtName}"
+              - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
+              - !Sub "arn:aws:s3:::${LoggingBucketSrtName}/*"
 
 Outputs:
   AuditRoleArn:
