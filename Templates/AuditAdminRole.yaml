@@ -26,12 +26,15 @@ Resources:
       AssumeRolePolicyDocument:
         Version: "2010-10-09"
         Statement:
-          - Effect: Allow
+          - Sid: AuditAdminRoleTrust
+            Effect: Allow
+            Principal: !Ref TrustedIdentityArn
             Actions:
             - sts:AssumeRole
-            Conditions:
-              StringEquals:
-                AWS: [!Ref TrustedIdentityArn]
+    AuditRoleManagedPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      
                 
             
       
