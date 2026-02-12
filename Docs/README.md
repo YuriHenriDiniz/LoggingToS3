@@ -44,10 +44,10 @@ O projeto foi realizado utilizando Debian 13 Trixie e o aws_signing_helper prese
 - Gere o certificado da CA e do servidor Rsyslog.
 - Execute os templates CloudFormation na ordem indicada abaixo:
 
-  - `Bucket.yaml`
-  - `AuditRole.yaml`
-  - `RolesAnywhere.yaml`
-  - `Bucket-policies.yaml`
+  1. `Bucket.yaml`
+  2. `AuditRole.yaml`
+  3. `RolesAnywhere.yaml`
+  4. `Bucket-policies.yaml`
 
 - Modifique o `config` passando os caminhos corretos e os ARNs.
 
