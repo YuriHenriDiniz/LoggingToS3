@@ -13,6 +13,9 @@ Parameters:
     LoggingBucketSrtArn:
        Type: string
        Description: arn do bucket-srt
+    TrustedIdentityArn:
+       Type: string
+       Description: arn da identidade confiável
 Resources:
     AuditAdminRole:
     Type: AWS::IAM::Role
@@ -20,4 +23,15 @@ Resources:
       RoleName: !Ref AuditAdminRoleName
       ManagedPolicyArns:
         - !Ref AuditAdminRolePolicy
+      AssumeRolePolicyDocument:
+        Version: "2010-10-09"
+        Statement:
+          - Effect: Allow
+            Actions:
+            - sts:AssumeRole
+            Conditions:
+              StringEquals:
+                AWS: [!Ref TrustedIdentityArn]
+                
+            
       
