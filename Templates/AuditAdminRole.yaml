@@ -6,16 +6,19 @@ Parameters:
     AuditAdminRoleName:
        Type: string
        Default: AuditAdminRole
-       Description: Nome da role
+       Description: Nome da role.
     LoggingBucketArn:
        Type: string
-       Description: arn do bucket principal
+       Description: arn do bucket principal.
     LoggingBucketSrtArn:
        Type: string
-       Description: arn do bucket-srt
+       Description: arn do bucket-srt.
     TrustedIdentityArn:
        Type: string
-       Description: arn da identidade confiável
+       Description: arn da identidade confiável.
+    ManagedPolicyName:
+       Type: string
+       Description: nome da politica anexada a role.
 Resources:
     AuditAdminRole:
     Type: AWS::IAM::Role
@@ -34,7 +37,23 @@ Resources:
     AuditRoleManagedPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
-      
+       ManagedPolicyName: !Ref ManagedPolicyName
+       ManagedPolicyDocument:
+          Version: "2010-10-07"
+          Statement:
+          - Sid: AuditRoleManagedPolicy
+            Effect: Allow
+            Actions:
+            - s3:*
+            Resources:
+            - !Ref LoggingBucketArn
+            - !Ref LoggingBucketSrtArn
+
+Outputs:
+  AuditRoleArn:
+    Description:
+    Value: !Ref AuditAdminRole
+       
                 
             
       
