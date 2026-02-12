@@ -9,4 +9,12 @@ Parameters:
        Description: Nome da role
     LoggingBucketArn:
        Type: string
-       Description: AR
+       Description: arn do bucket principal
+    LoggingBucketSrtArn:
+       Type: string
+       Description: arn do bucket-srt
+Resources:
+    AuditAdminRole:
+    Type: AWS::IAM::Role
+    Properties:
+      TrustPolicy
