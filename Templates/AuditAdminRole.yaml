@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+    Template para criar a role administrativa
+    que tem controle total sobre os dois buckets.
+Parameters:
+    AuditAdminRoleName:
+       Type: string
+       Default: AuditAdminRole
+       Description: Nome da role
+    LoggingBucketArn:
+       Type: string
+       Description: AR
