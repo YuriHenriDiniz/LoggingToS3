@@ -1,38 +1,38 @@
 [
   {
     "ParameterKey": "TrustAnchorName",
-    "ParameterValue": "rsyslog-trust-anchor"
+    "ParameterValue": "<PARAMETER_VALUE>"
   },
   {
     "ParameterKey": "ProfileName",
-    "ParameterValue": "rsyslog-profile"
+    "ParameterValue": "<PARAMETER_VALUE>"
   },
   {
     "ParameterKey": "X509SanUri",
-    "ParameterValue": "urn:rsyslog:prod"
+    "ParameterValue": "<PARAMETER_VALUE>"
   },
   {
     "ParameterKey": "X509SubjectCN",
-    "ParameterValue": "rsyslog-prod"
+    "ParameterValue": "<PARAMETER_VALUE>"
   },
   {
     "ParameterKey": "X509IssuerCN",
-    "ParameterValue": "Campy Intermediate CA"
+    "ParameterValue": "<PARAMETER_VALUE>"
   },
   {
     "ParameterKey": "RsyslogRoleName",
-    "ParameterValue": "rsyslog-role"
+    "ParameterValue": "<PARAMETER_VALUE>"
   },
   {
     "ParameterKey": "RsyslogRolePolicyName",
-    "ParameterValue": "rsyslog-policy"
+    "ParameterValue": "<PARAMETER_VALUE>"
   },
   {
     "ParameterKey": "LoggingBucket",
-    "ParameterValue": "campy-logging-bkt"
+    "ParameterValue": "<PARAMETER_VALUE>"
   },
   {
     "ParameterKey": "LoggingBucketSrt",
-    "ParameterValue": "campy-logging-bkt-srt"
+    "ParameterValue": "<PARAMETER_VALUE>"
   }
 ]
