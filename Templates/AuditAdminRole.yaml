@@ -25,7 +25,7 @@ Resources:
     Properties:
       RoleName: !Ref AuditAdminRoleName
       ManagedPolicyArns:
-        - !Ref AuditAdminRolePolicy
+        - !Ref AuditRoleManagedPolicy
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -39,7 +39,7 @@ Resources:
     Type: AWS::IAM::ManagedPolicy
     Properties:
        ManagedPolicyName: !Ref ManagedPolicyName
-       ManagedPolicyDocument:
+       PolicyDocument:
           Version: "2012-10-17"
           Statement:
           - Sid: AuditRoleManagedPolicy
@@ -47,8 +47,10 @@ Resources:
             Actions:
             - s3:*
             Resources:
-            - !Sub "arn:aws:iam:::${LoggingBucketName}"
-            - !Sub "arn:aws:iam:::${LoggingBucketSrtName}"
+            - !Sub "arn:aws:s3:::${LoggingBucketName}"
+            - !Sub "arn:aws:s3:::${LoggingBucketSrtName}"
+            - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
+            - !Sub "arn:aws:s3:::${LoggingBucketSrtName}/*"
 
 Outputs:
   AuditRoleArn:
