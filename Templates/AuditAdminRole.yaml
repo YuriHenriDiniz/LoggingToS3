@@ -7,10 +7,10 @@ Parameters:
        Type: string
        Default: AuditAdminRole
        Description: Nome da role.
-    LoggingBucketArn:
+    LoggingBucketName:
        Type: string
        Description: arn do bucket principal.
-    LoggingBucketSrtArn:
+    LoggingBucketSrtName:
        Type: string
        Description: arn do bucket-srt.
     TrustedIdentityArn:
@@ -27,11 +27,12 @@ Resources:
       ManagedPolicyArns:
         - !Ref AuditAdminRolePolicy
       AssumeRolePolicyDocument:
-        Version: "2010-10-09"
+        Version: "2012-10-17"
         Statement:
           - Sid: AuditAdminRoleTrust
             Effect: Allow
-            Principal: !Ref TrustedIdentityArn
+            Principal: 
+               AWS: !Ref TrustedIdentityArn
             Actions:
             - sts:AssumeRole
     AuditRoleManagedPolicy:
@@ -39,15 +40,15 @@ Resources:
     Properties:
        ManagedPolicyName: !Ref ManagedPolicyName
        ManagedPolicyDocument:
-          Version: "2010-10-07"
+          Version: "2012-10-17"
           Statement:
           - Sid: AuditRoleManagedPolicy
             Effect: Allow
             Actions:
             - s3:*
             Resources:
-            - !Ref LoggingBucketArn
-            - !Ref LoggingBucketSrtArn
+            - !Sub "arn:aws:iam:::${LoggingBucketName}"
+            - !Sub "arn:aws:iam:::${LoggingBucketSrtName}"
 
 Outputs:
   AuditRoleArn:
