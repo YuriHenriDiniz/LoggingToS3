@@ -20,6 +20,15 @@ com coleta centralizada de logs e arquivamento seguro no S3.
 O objetivo desse projeto é configurar, simular e documentar um ambiente onde logs são, através de um servidor de logs, coletados, organizados e retidos localmente e posteriormente enviados para buckets do Amazon S3. Tendo uma política de retenção local e de arquivamento definida conforme questões de criticidade, utilidade e volume. O projeto inclui um script de deploy e também templates CloudFormation que recriam o ambiente para quem quiser testar.
 
 ## Tecnologias utilizadas
+- Amazon S3 Standard, Infrequent Access (IA) e Glacier Archive
+- Rsyslog
+- NXLog
+- OpenSSL
+- Amazon Identity and Access Management (IAM)
+- Roles Anywhere
+- Debian (systemd, nftables, OpenSSH, etc)
+- Hyper-V
+- CloudFormation
 
 ## Deploy
 
