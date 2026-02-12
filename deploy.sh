@@ -149,6 +149,7 @@ echo "[..] Repo detectado: $REPO_DIR"
 
 RSYSLOG_DROPIN_SRC="$REPO_DIR/rsyslog.conf"
 RSYSLOG_SERVICE_SRC="$REPO_DIR/rsyslog.service"
+RSYSLOG_MAIN_SRC="$REPO_DIR/default.conf"
 
 AWS_CONFIG_SRC="$REPO_DIR/config"
 AWS_CREDENTIALS_SRC="$REPO_DIR/credentials"
@@ -172,6 +173,7 @@ ensure_user "logsync" "rsyslog" "logservices,logsync"
 
 echo "[..] Configurando rsyslog"
 
+install_file "$RSYSLOG_MAIN_SRC" "/etc/rsyslog.conf" "0644" "root" "root"
 install_file "$RSYSLOG_DROPIN_SRC" "/etc/rsyslog.d/rsyslog.conf" "0644" "root" "root"
 
 mkdir -p /var/log/rsyslog
