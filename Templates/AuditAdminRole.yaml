@@ -2,7 +2,9 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: >
     Template para criar a role administrativa
     que tem controle total sobre os dois buckets.
+    
 Parameters:
+
     AuditAdminRoleName:
        Type: string
        Default: AuditAdminRole
@@ -57,7 +59,7 @@ Resources:
 Outputs:
   AuditRoleArn:
     Description:
-    Value: !Ref AuditAdminRole
+    Value: !GetAtt AuditAdminRole.arn
        
                 
             
