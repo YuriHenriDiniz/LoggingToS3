@@ -15,7 +15,9 @@ com coleta centralizada de logs e arquivamento seguro no S3.
   - Trust Anchor
   - Bucket Policies
 
-Para melhor entendimento da arquitetura veja o diagrama abaixo: ![diagrama de arquitetura](architecture.jpg)
+Para melhor entendimento da arquitetura veja o diagrama abaixo:
+
+![diagrama de arquitetura](architecture.jpg)
 
 ## Objetivo
 
