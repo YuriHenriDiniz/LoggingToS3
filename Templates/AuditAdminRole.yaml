@@ -9,15 +9,19 @@ Parameters:
        Type: string
        Default: AuditAdminRole
        Description: Nome da role.
+       
     LoggingBucketName:
        Type: string
        Description: arn do bucket principal.
+       
     LoggingBucketSrtName:
        Type: string
        Description: arn do bucket-srt.
+       
     TrustedIdentityArn:
        Type: string
        Description: arn da identidade confiável.
+       
     ManagedPolicyName:
        Type: string
        Description: nome da politica anexada a role.
@@ -59,7 +63,7 @@ Resources:
 Outputs:
   AuditRoleArn:
     Description:
-    Value: !GetAtt AuditAdminRole.arn
+    Value: !GetAtt AuditAdminRole.Arn
        
                 
             
