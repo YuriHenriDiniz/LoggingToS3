@@ -28,6 +28,6 @@ Enquanto configurava os grupos de um usuário, queria colocá-lo no grupo ssh_us
 
 Durante o projeto decidi adicionar mais discos virtuais para simular melhor um ambiente real. Tive que rearranjar o layout do armazenamento removendo algumas particoes/pvs que tinha criado. Porem, nesse processo acabei que removi as particoes antes de remover os PVs. Deixando o VG em questao inconsistente. Removi os PVs usando o pvremove e restaurei a consistencia do VG utilizando
 
-## Daemon do Rsyslog não conseguindo realizar bind corretamente.
+## Daemon do Rsyslog não conseguindo realizar o bind corretamente.
 
 Quando estava testando o script em uma VM que tinha acabado de subir, percebi que, quando eu reiniciava a VM, o Rsyslog subia, porém não conseguia fazer o bind no endereço IP e tinha que executar systemctl restart para fazer com que ele voltasse a ouvir na porta 514. O motivo era bem simples, como era para um simples teste, estava utilizando um IP dinâmico obtido via DHCP. O problema é que a VM demorava às vezes para receber esse IP e aí o Rsyslog tentava fazer o bind e o IP não estava disponível e, como ele só tenta durante a inicialização, tinha que reiniciar o serviço. Isso demonstra a importância de utilizar IPs estáticos em servidores para evitar esse tipo de evento.
