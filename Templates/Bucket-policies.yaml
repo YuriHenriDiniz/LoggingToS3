@@ -12,9 +12,9 @@ Parameters:
     Type: String
     Description: Nome do segundo bucket.
     
-  RootArn:
+  AuditAdminArn:
     Type: String
-    Description: ARN da raiz.
+    Description: ARN da role administrativa.
     
   RsyslogRoleArn:
     Type: String
@@ -37,7 +37,7 @@ Resources:
               Effect: Deny
               NotPrincipal:
                 AWS:
-                  - !Ref RootArn
+                  - !Ref AuditAdminArn
                   - !Ref RsyslogRoleArn
                   - !Ref AuditRoleArn
               Action: "s3:*"
@@ -101,7 +101,7 @@ Resources:
               Effect: Deny
               NotPrincipal:
                 AWS:
-                  - !Ref RootArn
+                  - !Ref AuditAdminRole
                   - !Ref RsyslogRoleArn
                   - !Ref AuditRoleArn
               Action: "s3:*"
