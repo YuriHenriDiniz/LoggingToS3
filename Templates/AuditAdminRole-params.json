@@ -1,17 +1,22 @@
 [
   {
-    "ParameterKey":,
-    "ParameterValue": 
-  },
-  {
-    "ParameterKey":"AuditRoleName",
+    "ParameterKey":"AuditAdminRoleName",
     "ParameterValue":"<PARAMETER_VALUE>"
   },
-
-
-
-
-
-
-  
+  {
+    "ParameterKey":"LoggingBucketName",
+    "ParameterValue":"<PARAMETER_VALUE>"
+  },
+  {
+    "ParameterKey":"LoggingBucketSrtName",
+    "ParameterValue":"PARAMETER_VALUE"
+  },
+  {
+    "ParameterKey":"TrustedIdentityArn",
+    "ParameterValue":"PARAMETER_VALUE"
+  },
+  {
+    "ParameterKey":"ManagedPolicyName",
+    "ParameterValue":"PARAMETER_VALUE"
+  }
 ]
