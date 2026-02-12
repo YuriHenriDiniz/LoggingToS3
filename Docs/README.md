@@ -15,7 +15,7 @@ com coleta centralizada de logs e arquivamento seguro no S3.
   - Trust Anchor
   - Bucket Policies
 
-Para melhor entendimento da arquitetura veja o diagrama abaixo: ![diagrama de arquitetura](architecture.jpg).
+Para melhor entendimento da arquitetura veja o diagrama abaixo: ![diagrama de arquitetura](architecture.jpg)
 
 ## Objetivo
 
@@ -40,7 +40,7 @@ O projeto foi realizado utilizando Debian 13 Trixie e o aws_signing_helper prese
 
 ### Passo a passo:
 
-- Execute `git clone` passando a URL deste repositório.
+- Clone esse repositório com `git clone`.
 - Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
 - Execute o `logsync.sh`.
 - Gere o certificado da CA e do servidor Rsyslog.
