@@ -1,9 +1,6 @@
 # Dificuldades encontradas durante a realização do projeto:
 
 
-## RouterOS do roteador inicializa porém para de enviar logs para o servidor sem motivo aparente.
-Durante os testes percebi que quando iniciava o Roteador ele parava de enviar logs para o Rsyslog. Pelo que 
-
 ## Passar o PEM bundle através de parametro em template.
 
 Para facilitar o deploy, pensei em criar um parâmetro para passar a string PEM do certificado através dele. Porém, acaba que não é confiável, já que, diferente do console, a API não limpa o PEM. Logo, se tiver algum caractere indevido, como espaço na string, dá erro e, mesmo que você garanta que está tudo certo, o próprio CloudFormation realiza o processamento dessa string e pode introduzir caracteres indevidos. Dessa forma, decide simplesmente passá-lo inline na template.
