@@ -39,7 +39,7 @@ O objetivo desse projeto é configurar, simular e documentar um ambiente onde lo
 
 ### Considerações:
 
-O projeto foi realizado utilizando Debian 13 Trixie e o aws_signing_helper presente no repositório foi compilado para essa versão. O binário já está compilado aqui por conveniência, porém, caso encontre algum problema, recomendo acessar o repositório [Oficial](https://github.com/aws/rolesanywhere-credential-helper/tree/main) e realizar o build no seu ambiente.
+O projeto foi realizado utilizando Debian 13 Trixie logo o binário do aws_signing_helper presente no repositório foi compilado para essa versão. O binário já está compilado aqui por conveniência, mas, caso utilize outra versão, recomendo acessar o repositório [Oficial](https://github.com/aws/rolesanywhere-credential-helper/tree/main) e realizar o build no seu ambiente.
 
 ### Passo a passo:
 
