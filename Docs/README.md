@@ -33,6 +33,7 @@ O objetivo desse projeto é configurar, simular e documentar um ambiente onde lo
 - Debian (systemd, nftables, OpenSSH, etc)
 - Hyper-V
 - CloudFormation
+- RouterOS
 
 ## Deploy
 
@@ -51,7 +52,8 @@ O projeto foi realizado utilizando Debian 13 Trixie e o aws_signing_helper prese
   1. `Bucket.yaml`
   2. `AuditRole.yaml`
   3. `RolesAnywhere.yaml`
-  4. `Bucket-policies.yaml`
+  4. `AuditAdminRole.yaml`
+  5. `Bucket-policies.yaml`
 
 - Modifique o `config` passando os caminhos corretos e os ARNs.
 
@@ -78,8 +80,8 @@ Decisões em relação à segurança tomadas durante o desenvolvimento estão do
 
 ## Referências
 
-- AWS IAM Roles Anywhere – documentação oficial (https://docs.aws.amazon.com/rolesanywhere/)
-- Rsyslog Documentation – documentação oficial (https://www.rsyslog.com/doc/index.html)
-- RFC 5424 – The Syslog Protocol (https://datatracker.ietf.org/doc/html/rfc5424)
-- RouterOS Documentation - documentação oficial (https://help.mikrotik.com/docs/spaces/ROS/pages/328119/Getting+started)
-- NXLog Community Edition Reference Manual - manual da comunidade (https://docs.nxlog.co/ce/current/index.html)
+- AWS IAM Roles Anywhere - documentação oficial - (https://docs.aws.amazon.com/rolesanywhere/)
+- Rsyslog Documentation - documentação oficial - (https://www.rsyslog.com/doc/index.html)
+- RFC 5424 – The Syslog Protocol - (https://datatracker.ietf.org/doc/html/rfc5424)
+- RouterOS Documentation - documentação oficial - (https://help.mikrotik.com/docs/spaces/ROS/pages/328119/Getting+started)
+- NXLog Community Edition Reference Manual - manual da comunidade - (https://docs.nxlog.co/ce/current/index.html)
