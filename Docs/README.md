@@ -76,7 +76,7 @@ Erros reais encontrados durante o desenvolvimento estão documentados em
 ## Segurança
 
 Decisões em relação à segurança tomadas durante o desenvolvimento estão documentadas em
-[Security.md](Security.md).
+[Security.md](security.md).
 
 ## Referências
 
