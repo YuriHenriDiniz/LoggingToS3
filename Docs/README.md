@@ -17,7 +17,7 @@ com coleta centralizada de logs e arquivamento seguro no S3.
 
 Para melhor entendimento da arquitetura veja o diagrama abaixo:
 
-![diagrama de arquitetura](architecture.jpg)
+![diagrama de arquitetura](architecture2.jpg)
 
 ## Objetivo
 
