@@ -60,7 +60,7 @@ O projeto foi realizado utilizando Debian 13 Trixie logo o binário do aws_signi
 ## Decisões Técnicas
 
 As principais decisões de arquitetura estão documentadas em
-[Decisions.md](Decisions.md).
+[Decisions.md](decisions.md).
 
 Entre elas:
 
