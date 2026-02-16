@@ -1,30 +1,28 @@
 # Principais configuraçoes feitas no servidor #
 
 ## Firewall
-Utilizei o nftables para criar regras de filtragem para hardening basico. Onde apenas SSH (Porta TCP 22), Rsyslog (Porta TCP e UDP 514) e ICMP (Protocolo IP 1) estão liberados para entrada. Enquanto tráfego de saida
-apenas servicos essenciais como http (Porta TCP 80 e 443) para acessar os repositorios configurados, NTP (Porta UDP 123) para manter o tempo local sincronizado, DNS (Porta TCP e UDP 53) para resolver nomes de dominio.
+Utilizei o nftables para criar regras de filtragem para hardening básico Onde apenas SSH (Porta TCP 22), Rsyslog (Porta TCP e UDP 514) e ICMP (Protocolo IP 1) estão liberados para entrada. Enquanto tráfego de saída, apenas serviços essenciais como http (Porta TCP 80 e 443) para acessar os repositórios configurados, NTP (Porta UDP 123) para manter o tempo local sincronizado, DNS (Porta TCP e UDP 53) para resolver nomes de domínio.
 
 ## NTP
-Utilizei o chronyd como cliente NTP. Configurei ele para utilizar tres servidores NTP locais que então sincronizam com pools de servidores externos como time.cloudflare.com, a.ntp.br e b.ntp.br. Dessa maneira com o tempo e a timezone correta tanto no servidor quanto nos clientes os logs podem entao ser correlacionados de maneira assertiva.
+Utilizei o chronyd como cliente NTP. Configurei-o para utilizar três servidores NTP locais que então sincronizam com pools de servidores externos como time.cloudflare.com, a.ntp.br e b.ntp.br. Dessa maneira, com o tempo e a timezone correta tanto no servidor quanto nos clientes, os logs podem então ser correlacionados de maneira assertiva.
 
 ## Network
-Utilizei o systemd-networkd para configurar a interface de rede usando arquivos de configuração .link e .network. Configuração estatica simples incluindo IP estático, Gateway e nome adequado para a interface. Assim desse forma as configuraçoes de rede persistem entre reinicializaçoes.
+Utilizei o systemd-networkd para configurar a interface de rede usando arquivos de configuração .link e .network. Configuração estática simples incluindo IP estático, Gateway e nome adequado para a interface. Assim, dessa forma, as configurações de rede persistem entre reinicializações.
 
 ## SSH
-O SSH foi configurado de forma segura usando configurações como: impedir login como root, impedir autenticacao por senha, apenas permitir acesso de usuarios do grupo ssh_users, desabilitar fowarding, limitar numero de sessoes por usuario, numero maximo de tentativas de autenticacao, etc.
+O SSH foi configurado de forma segura usando configurações como: impedir login como root, impedir autenticação por senha, apenas permitir acesso de usuários do grupo ssh_users, desabilitar forwarding, limitar número de sessões por usuário, número máximo de tentativas de autenticação, etc.
 
 ## Journald
-O journald e o coletor de logs padrao nas distros que utilizam systemd. Nesse caso o nosso coletor seria o Rsyslog, entao configurei o journald apenas como relay onde ele nao armazena nenhum log de forma persistente.
-Apenas faz o fowarding para o Rsyslog atraves do modulo imuxsock.
+O journald é o coletor de logs padrão nas distros que utilizam systemd. Nesse caso, o nosso coletor seria o Rsyslog, então configurei o journald apenas como relay, onde ele não armazena nenhum log de forma persistente. Apenas faz o forwarding para o Rsyslog através do módulo imuxsock.
 
 ## MTA
-Instalei o msmtp para enviar emails de alerta usando gmail como relay smtp. Para simplicidade utilizei uma conta gmail minha usando app-password para autenticar o servidor. O unattended-upgrades por exemplo, caso ocorra um erro no processo de instalação das atualizaçoes de segurança me notifica atraves desse meu email.
+Instalei o msmtp para enviar e-mails de alerta usando o Gmail como relay SMTP para simplicidade, utilizei uma conta Gmail minha usando app-password para autenticar o servidor. O unattended-upgrades, por exemplo, caso ocorra um erro no processo de instalação das atualizações de segurança, me notifica através desse meu email.
 
 ## PackageManager
-Configurei o sources.list do apt para utilizar apenas pacotes das suites trixie, trixie-updates e trixie-security. Usando explicitamente trixie ao inves de stable para fixar a release e evitar upgrade automatico de release. Dessas suites apenas pacotes dos componentes main e non-free firmware sao considerados. E para upgrades automaticos que sao muito importantes no caso de updates de seguranca para corrigir vulnerabilidades utilizei o unattended-upgrades para atualizar o sistema automaticamente de acordo com novas atualizacoes de seguranca.
+Configurei o sources.list do apt para utilizar apenas pacotes das suites trixie, trixie-updates e trixie-security. Usando explicitamente trixie ao invés de stable para fixar a release e evitar upgrade automático de release. Dessas suítes, apenas pacotes dos componentes main e non-free firmware são considerados. E para upgrades automáticos, que são muito importantes no caso de updates de segurança para corrigir vulnerabilidades, utilizei o unattended-upgrades para atualizar o sistema automaticamente de acordo com novas atualizações de segurança.
 
 ## Kernel
-Customizei alguns parametros do kernel por questoes de seguranca. Desativando funcoes como fowarding e ativando protecoes como icmp-request/icmp-reply como broadcast (Smurf Attack), protecoes contra tcp syn-flood, verficacao de origem para evitar IP spoofing, verificacao de arquivos word-writable, desabilitar ipv6 já que não estou utilizando no lab, etc.
+Customizei alguns parâmetros do kernel por questões de segurança desativando funções como forwarding e ativando proteções como icmp-request/icmp-reply como broadcast (Smurf Attack), proteções contra tcp syn-flood, verificação de origem para evitar IP spoofing, verificação de arquivos word-writable, desabilitar ipv6 já que não estou utilizando no lab, etc.
 
 ## Storage
-Como os logs vao ser armazenados localmente por um periodo. Separei /, /boot e /var por seguranca, principalmente caso o /var fique cheio e haja corrupcao do sistema de arquivos protegendo assim arquivos essenciais do sistema e protegendo o processo de boot. Alem de utilizar LVM por questoes de flexibilidade pensando em expansoes futuras com a possibilidade de expandir LVs (Logical Volumes) para multiplos discos, ou pensando em cenarios de troca de discos utilizando a movimentacao online de extends entre PVs.
+Como os logs vão ser armazenados localmente por um período Separei /, /boot e /var por segurança, principalmente caso o /var fique cheio e haja corrupção do sistema de arquivos, protegendo assim arquivos essenciais do sistema e protegendo o processo de boot. Além de utilizar LVM por questões de flexibilidade, pensando em expansões futuras com a possibilidade de expandir LVs (Logical Volumes) para múltiplos discos, ou pensando em cenários de troca de discos utilizando a movimentação online de extends entre PVs.
