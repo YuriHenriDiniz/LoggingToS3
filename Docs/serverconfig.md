@@ -1,8 +1,8 @@
 # Principais configuraçoes feitas no servidor #
 
 ## Firewall
-Utilizei o nftables para criar regras de filtragem para hardening basico. Onde apenas SSH (Porta 22), Rsyslog (Porta 514) e ICMP (Protocolo IP 1) estão liberados para entrada. Enquanto tráfego de saida
-apenas servicos essenciais como http/https (Porta 80 443) para acessar os repositorios configurados, NTP (Porta 123) para manter o tempo local sincronizado, DNS (Porta 53) para resolver nomes de dominio.
+Utilizei o nftables para criar regras de filtragem para hardening basico. Onde apenas SSH (Porta TCP 22), Rsyslog (Porta TCP e UDP 514) e ICMP (Protocolo IP 1) estão liberados para entrada. Enquanto tráfego de saida
+apenas servicos essenciais como http (Porta TCP 80 e 443) para acessar os repositorios configurados, NTP (Porta UDP 123) para manter o tempo local sincronizado, DNS (Porta TCP e UDP 53) para resolver nomes de dominio.
 
 ## NTP
 Utilizei o chronyd como cliente NTP. Configurei ele para utilizar tres servidores NTP locais que então sincronizam com pools de servidores externos como time.cloudflare.com, a.ntp.br e b.ntp.br.
@@ -11,22 +11,20 @@ Utilizei o chronyd como cliente NTP. Configurei ele para utilizar tres servidore
 Utilizei o systemd-networkd para configurar a interface de rede usando arquivos de configuração .link e .network. Configuração estatica simples incluindo IP estático, Gateway e nome adequado para a interface.
 
 ## SSH
-O SSH foi configurado de forma segura usando configurações como: impedir root-login, sem autenticacao por senha, apenas permitir acesso de usuarios no grupo ssh_users, desabilitar fowarding, limitar numero de sessoes por
-usuario, numero maximo de tentativas de autenticacao, etc.
+O SSH foi configurado de forma segura usando configurações como: impedir login como root, impedir autenticacao por senha, apenas permitir acesso de usuarios do grupo ssh_users, desabilitar fowarding, limitar numero de sessoes por usuario, numero maximo de tentativas de autenticacao, etc.
 
 ## Journald
 O journald e o coletor de logs padrao nas distros que utilizam systemd. Nesse caso o nosso coletor seria o Rsyslog, entao configurei o journald apenas como relay onde ele nao armazena nenhum log de forma persistente.
-Apenas faz o fowarding para o Rsyslog atraves de unix socket.
+Apenas faz o fowarding para o Rsyslog atraves do modulo imuxsock.
 
 ## MTA
 Instalei o msmtp para enviar emails de alerta usando gmail como relay smtp. Para simplicidade utilizei uma conta gmail minha usando app-password para autenticar o servidor.
 
 ## PackageManager
-Configurei o sources.list do apt para utilizar apenas pacotes das suites trixie, trixie-updates e trixie-security. Usando trixie ao inves de stable para fixar a release e evitar upgrade automatico de release. Desses suites apenas pacotes dos componentes main e non-free firmware sao considerados. E para upgrades automaticos muito importantes no caso de updates de seguranca para corrigir vulnerabilidades utilizei o unattended-upgrades para atualizar o sistema automaticamente de acordo como novas atualizacoes de seguranca.
+Configurei o sources.list do apt para utilizar apenas pacotes das suites trixie, trixie-updates e trixie-security. Usando explicitamente trixie ao inves de stable para fixar a release e evitar upgrade automatico de release. Dessas suites apenas pacotes dos componentes main e non-free firmware sao considerados. E para upgrades automaticos que sao muito importantes no caso de updates de seguranca para corrigir vulnerabilidades utilizei o unattended-upgrades para atualizar o sistema automaticamente de acordo com novas atualizacoes de seguranca.
 
 ## Kernel
-Customizei alguns parametros do kernel por questoes de seguranca. Desativando funcoes como fowarding, icmp-request/icmp-reply como broadcast (Smurf Attack), protecoes contra tcp syn-flood, verficacao de origem para evitar
-IP spoofing, verificacao de arquivos word-writable, etc. \
+Customizei alguns parametros do kernel por questoes de seguranca. Desativando funcoes como fowarding e ativando protecoes como icmp-request/icmp-reply como broadcast (Smurf Attack), protecoes contra tcp syn-flood, verficacao de origem para evitar IP spoofing, verificacao de arquivos word-writable, etc.
 
 ## Storage
-Como os logs vao ser armazenados localmente por um periodo. Separei /, /boot e /var por seguranca, principalmente caso o /var fique cheio e haja corrupcao do sistema de arquivos protegendo assim arquivos essenciais do sistema e protegendo o processo de boot. Alem de usar LVM por questoes de flexibilidade pensando em expansoes futuras com a possibilidade de expandir LVs (Logical Volumes) para multiplos discos, ou pensando em cenarios de troca de discos utilizando a movimentacao online de extends entre PVs.
+Como os logs vao ser armazenados localmente por um periodo. Separei /, /boot e /var por seguranca, principalmente caso o /var fique cheio e haja corrupcao do sistema de arquivos protegendo assim arquivos essenciais do sistema e protegendo o processo de boot. Alem de utilizar LVM por questoes de flexibilidade pensando em expansoes futuras com a possibilidade de expandir LVs (Logical Volumes) para multiplos discos, ou pensando em cenarios de troca de discos utilizando a movimentacao online de extends entre PVs.
