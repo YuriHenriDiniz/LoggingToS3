@@ -26,4 +26,7 @@ Configurei o sources.list do apt para utilizar apenas pacotes das suites trixie,
 
 ## Kernel
 Customizei alguns parametros do kernel por questoes de seguranca. Desativando funcoes como fowarding, icmp-request/icmp-reply como broadcast (Smurf Attack), protecoes contra tcp syn-flood, verficacao de origem para evitar
-IP spoofing, verificacao de arquivos word-writable, etc. 
+IP spoofing, verificacao de arquivos word-writable, etc. \
+
+## Storage
+Como os logs vao ser armazenados localmente por um periodo. Separei /, /boot e /var por seguranca, principalmente caso o /var fique cheio e haja corrupcao do sistema de arquivos protegendo assim arquivos essenciais do sistema e protegendo o processo de boot. Alem de usar LVM por questoes de flexibilidade pensando em expansoes futuras com a possibilidade de expandir LVs (Logical Volumes) para multiplos discos, ou pensando em cenarios de troca de discos utilizando a movimentacao online de extends entre PVs.
