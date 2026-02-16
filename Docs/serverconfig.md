@@ -22,5 +22,8 @@ Apenas faz o fowarding para o Rsyslog atraves de unix socket.
 Instalei o msmtp para enviar emails de alerta usando gmail como relay smtp. Para simplicidade utilizei uma conta gmail minha usando app-password para autenticar o servidor.
 
 ## PackageManager
-Configurei o sources.list do apt para utilizar apenas pacotes das suites trixie, trixie-updates e trixie-security. Usando trixie ao inves de stable para fixar a release e evitar upgrade automatico de release. Desses suites apenas pacotes
-dos componentes main e non-free firmware
+Configurei o sources.list do apt para utilizar apenas pacotes das suites trixie, trixie-updates e trixie-security. Usando trixie ao inves de stable para fixar a release e evitar upgrade automatico de release. Desses suites apenas pacotes dos componentes main e non-free firmware sao considerados. E para upgrades automaticos muito importantes no caso de updates de seguranca para corrigir vulnerabilidades utilizei o unattended-upgrades para atualizar o sistema automaticamente de acordo como novas atualizacoes de seguranca.
+
+## Kernel
+Customizei alguns parametros do kernel por questoes de seguranca. Desativando funcoes como fowarding, icmp-request/icmp-reply como broadcast (Smurf Attack), protecoes contra tcp syn-flood, verficacao de origem para evitar
+IP spoofing, verificacao de arquivos word-writable, etc. 
