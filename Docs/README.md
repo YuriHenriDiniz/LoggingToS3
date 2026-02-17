@@ -48,10 +48,10 @@ O projeto foi realizado utilizando Debian 13 Trixie logo o binário do aws_signi
 - Execute o `logsync.sh`.
 - Gere o certificado da CA e do servidor Rsyslog.
 - Execute os templates CloudFormation na ordem, os parâmetros são inseridos
-  nos arquivos .json com os nomes correspondentes, exceto para a string PEM
-  do certificado da CA que será inserida inline direto no template. Utilizei
-  no perfil como identificação do servidor uma URI spiffe na extensão SAN do
-  certificado, o template requisita isso como parâmetro.
+  nos arquivos `.json` de mesmo nome, exceto para a string PEM do certificado
+  da CA que será inserida inline direto no template. Utilizei no perfil como
+  identificação do servidor uma URI spiffe na extensão SAN do certificado, o
+  template requisita isso como parâmetro.
 
   1. `Bucket.yaml`
   2. `AuditRole.yaml`
