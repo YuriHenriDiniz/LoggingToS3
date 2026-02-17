@@ -62,9 +62,5 @@ Resources:
 
 Outputs:
   AuditRoleArn:
-    Description:
+    Description: Retorna o arn da role AuditAdminRole.
     Value: !GetAtt AuditAdminRole.Arn
-       
-                
-            
-      
