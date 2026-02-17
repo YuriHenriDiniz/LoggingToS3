@@ -32,16 +32,16 @@ Resources:
       Properties:
         RoleName: !Ref AuditAdminRoleName
         ManagedPolicyArns:
-        - !Ref AuditRoleManagedPolicy
+         - !Ref AuditRoleManagedPolicy
         AssumeRolePolicyDocument:
           Version: "2012-10-17"
           Statement:
-          - Sid: AuditAdminRoleTrust
-            Effect: Allow
-            Principal: 
-               AWS: !Ref TrustedIdentityArn
-            Actions:
-            - sts:AssumeRole
+           - Sid: AuditAdminRoleTrust
+             Effect: Allow
+             Principal: 
+              AWS: !Ref TrustedIdentityArn
+             Action:
+              - sts:AssumeRole
             
     AuditRoleManagedPolicy:
       Type: AWS::IAM::ManagedPolicy
@@ -50,15 +50,15 @@ Resources:
          PolicyDocument:
             Version: "2012-10-17"
             Statement:
-            - Sid: AuditRoleManagedPolicy
-              Effect: Allow
-              Actions:
-              - s3:*
-              Resources:
-              - !Sub "arn:aws:s3:::${LoggingBucketName}"
-              - !Sub "arn:aws:s3:::${LoggingBucketSrtName}"
-              - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
-              - !Sub "arn:aws:s3:::${LoggingBucketSrtName}/*"
+             - Sid: AuditRoleManagedPolicy
+               Effect: Allow
+               Action:
+                - s3:*
+               Resources:
+                - !Sub "arn:aws:s3:::${LoggingBucketName}"
+                - !Sub "arn:aws:s3:::${LoggingBucketSrtName}"
+                - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
+                - !Sub "arn:aws:s3:::${LoggingBucketSrtName}/*"
 
 Outputs:
   AuditRoleArn:
