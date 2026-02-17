@@ -53,8 +53,8 @@ Resources:
              - Sid: AuditRoleManagedPolicy
                Effect: Allow
                Action:
-                - s3:*
-               Resources:
+                - "s3:*"
+               Resource:
                 - !Sub "arn:aws:s3:::${LoggingBucketName}"
                 - !Sub "arn:aws:s3:::${LoggingBucketSrtName}"
                 - !Sub "arn:aws:s3:::${LoggingBucketName}/*"
