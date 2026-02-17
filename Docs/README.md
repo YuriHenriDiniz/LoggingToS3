@@ -39,7 +39,7 @@ O objetivo desse projeto é configurar, simular e documentar um ambiente onde lo
 
 ### Considerações:
 
-O projeto foi realizado utilizando Debian 13 Trixie logo o binário do aws_signing_helper presente no repositório foi compilado para essa versão. O binário já está compilado aqui por conveniência, mas, caso utilize outra versão, recomendo acessar o repositório [Oficial](https://github.com/aws/rolesanywhere-credential-helper/tree/main) e realizar o build no seu ambiente.
+O projeto foi realizado utilizando Debian 13 Trixie logo o binário do `aws_signing_helper` presente no repositório foi compilado para essa versão. O binário já está compilado aqui por conveniência, mas, caso utilize outra versão, recomendo acessar o repositório [Oficial](https://github.com/aws/rolesanywhere-credential-helper/tree/main) e realizar o build no seu ambiente.
 
 ### Passo a passo:
 
@@ -47,11 +47,7 @@ O projeto foi realizado utilizando Debian 13 Trixie logo o binário do aws_signi
 - Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
 - Execute o `logsync.sh`.
 - Gere o certificado da CA e do servidor Rsyslog, utilizei o [OpenSSL](https://docs.openssl.org/master/), mas é possível utilizar qualquer outra ferramenta equivalente.
-- Execute os templates CloudFormation na ordem, os parâmetros são inseridos
-  nos arquivos `.json` correspondentes, exceto para a string PEM do certificado
-  da CA que será inserida inline direto no template `RolesAnywhere.yaml`. O perfil
-  configurado usa uma URI na extensão SAN do certificado, ou seja, o certificado do
-  servidor tem que conter essa extensão com esse identificador.
+- Execute os templates CloudFormation na ordem, os parâmetros são inseridos nos arquivos `.json` correspondentes, exceto para a string PEM do certificado da CA que será inserida inline direto no template   `RolesAnywhere.yaml`. O perfil configurado usa uma URI na extensão SAN do certificado, ou seja, o certificado do servidor tem que conter essa extensão com esse identificador.
 
   1. `Bucket.yaml`
   2. `AuditRole.yaml`
@@ -68,9 +64,9 @@ As principais decisões de arquitetura estão documentadas em
 
 Entre elas:
 
-- Uso de IAM Roles Anywhere ao invés de Access Keys
-- Uso de systemd timer ao invés de cron
-- Separação de buckets para retenção e staging
+- Uso de IAM Roles Anywhere ao invés de IAM Users
+- Uso de systemd timer ao invés de cro
+- Separação de buckets para diferentes políticas de retenção
 
 ## Troubleshooting
 
