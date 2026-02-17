@@ -183,6 +183,7 @@ echo "[OK] /var/log/rsyslog perms: root:logservices 0770"
 
 install_file "$RSYSLOG_SERVICE_SRC" "/etc/systemd/system/rsyslog.service" "0644" "root" "root"
 daemon_reload
+systemctl restart rsyslog.service
 
 systemctl enable --now rsyslog
 check_service_active "rsyslog"
