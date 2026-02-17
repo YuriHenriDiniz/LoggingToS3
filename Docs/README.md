@@ -47,7 +47,9 @@ O projeto foi realizado utilizando Debian 13 Trixie logo o binário do aws_signi
 - Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
 - Execute o `logsync.sh`.
 - Gere o certificado da CA e do servidor Rsyslog.
-- Execute os templates CloudFormation na ordem indicada abaixo:
+- Execute os templates CloudFormation na ordem, os parâmetros são inseridos
+  nos arquivos .json com os nomes correspondentes, exceto para a string PEM
+  do certificado da CA que será inserido inline direto no template.
 
   1. `Bucket.yaml`
   2. `AuditRole.yaml`
@@ -55,7 +57,7 @@ O projeto foi realizado utilizando Debian 13 Trixie logo o binário do aws_signi
   4. `AuditAdminRole.yaml`
   5. `Bucket-policies.yaml`
 
-- Modifique o `config` passando os caminhos corretos e os ARNs.
+- Modifique o `config` passando os caminhos corretos e os arns.
 
 ## Decisões Técnicas
 
