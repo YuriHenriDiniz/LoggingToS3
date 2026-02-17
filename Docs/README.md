@@ -78,10 +78,15 @@ Erros reais encontrados durante o desenvolvimento estão documentados em
 Decisões em relação à segurança tomadas durante o desenvolvimento estão documentadas em
 [security.md](security.md).
 
+## Configuração
+
+Uma visão geral da configuração dos clientes está documentada em [clientconfig.md](clientconfig.md)
+e do servidor em [serverconfig.md](serverconfig.md).
+
 ## Referências
 
 - AWS IAM Roles Anywhere - documentação oficial - (https://docs.aws.amazon.com/rolesanywhere/)
 - Rsyslog Documentation - documentação oficial - (https://www.rsyslog.com/doc/index.html)
-- RFC 5424 – The Syslog Protocol - (https://datatracker.ietf.org/doc/html/rfc5424)
+- RFC 5424 - The Syslog Protocol - (https://datatracker.ietf.org/doc/html/rfc5424)
 - RouterOS Documentation - documentação oficial - (https://help.mikrotik.com/docs/spaces/ROS/pages/328119/Getting+started)
 - NXLog Community Edition Reference Manual - manual da comunidade - (https://docs.nxlog.co/ce/current/index.html)
