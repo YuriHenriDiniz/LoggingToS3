@@ -65,7 +65,7 @@ As principais decisões de arquitetura estão documentadas em
 Entre elas:
 
 - Uso de IAM Roles Anywhere ao invés de IAM Users
-- Quando sincronizar com o S3 e como
+- Quando e como sincronizar com o S3
 - Separação de buckets para diferentes políticas de retenção
 
 ## Troubleshooting
