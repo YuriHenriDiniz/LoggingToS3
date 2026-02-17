@@ -101,7 +101,7 @@ Resources:
               Effect: Deny
               NotPrincipal:
                 AWS:
-                  - !Ref AuditAdminRole
+                  - !Ref AuditAdminArn
                   - !Ref RsyslogRoleArn
                   - !Ref AuditRoleArn
               Action: "s3:*"
