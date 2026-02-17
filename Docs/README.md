@@ -46,12 +46,12 @@ O projeto foi realizado utilizando Debian 13 Trixie logo o binário do aws_signi
 - Clone esse repositório com `git clone`.
 - Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
 - Execute o `logsync.sh`.
-- Gere o certificado da CA e do servidor Rsyslog.
+- Gere o certificado da CA e do servidor Rsyslog, utilizei o [OpenSSL](https://docs.openssl.org/master/), mas é possível utilizar qualquer outra ferramenta equivalente.
 - Execute os templates CloudFormation na ordem, os parâmetros são inseridos
   nos arquivos `.json` correspondentes, exceto para a string PEM do certificado
-  da CA que será inserida inline direto no template. O perfil configurado usa uma
-  URI na extensão SAN do certificado, ou seja, o certificado do servidor tem que conter
-  essa extensão com esse identificador.
+  da CA que será inserida inline direto no template `RolesAnywhere.yaml`. O perfil
+  configurado usa uma URI na extensão SAN do certificado, ou seja, o certificado do
+  servidor tem que conter essa extensão com esse identificador.
 
   1. `Bucket.yaml`
   2. `AuditRole.yaml`
@@ -94,3 +94,4 @@ e do servidor em [serverconfig.md](serverconfig.md).
 - RFC 5424 - The Syslog Protocol - (https://datatracker.ietf.org/doc/html/rfc5424)
 - RouterOS Documentation - documentação oficial - (https://help.mikrotik.com/docs/spaces/ROS/pages/328119/Getting+started)
 - NXLog Community Edition Reference Manual - manual da comunidade - (https://docs.nxlog.co/ce/current/index.html)
+- OpenSSL Documentation - documentação oficial - (https://docs.openssl.org/master/)
