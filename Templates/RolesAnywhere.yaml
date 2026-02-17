@@ -50,7 +50,7 @@ Resources:
       Source:
         SourceData:
           X509CertificateData: |
-            "INLINE CERTIFICATE"
+            INSIRA A STRING DO CERTIFICADO AQUI
         SourceType: CERTIFICATE_BUNDLE
 
   RsyslogS3Policy:
