@@ -15,7 +15,7 @@ Parameters:
 
   X509SanUri:
     Type: String
-    Description: Valor esperado para aws:PrincipalTag/x509SAN/URI
+    Description: Valor esperado para aws:PrincipalTag/x509SAN/URI, coloque sem o prefixo URI.
 
   X509SubjectCN:
     Type: String
