@@ -45,7 +45,7 @@ O projeto foi realizado utilizando Debian 13 Trixie logo o binário do `aws_sign
 
 - Clone esse repositório com `git clone`.
 - Edite o arquivo `rsyslog.conf` inserindo o IP que será utilizado.
-- Gere o certificado da CA e do servidor Rsyslog, utilizei o [OpenSSL](https://docs.openssl.org/master/), mas é possível utilizar qualquer outra ferramenta equivalente. Os certificados devem permitir acesso de leitura ao usuário `logsync` ou ao grupo `logservices`.
+- Gere o certificado da CA e do servidor Rsyslog, utilizei o [OpenSSL](https://docs.openssl.org/master/), mas é possível utilizar qualquer outra ferramenta equivalente. Os certificados devem permitir acesso de leitura ao usuário `logsync` ou ao grupo `logservices` e conter as extensões corretas de `keyUsage` e `extendedKeyUsage`.
 - Execute os templates CloudFormation na ordem, os parâmetros são inseridos nos arquivos `.json` correspondentes, exceto para a string PEM do certificado da CA que será inserida inline direto no template   `RolesAnywhere.yaml`. O perfil configurado usa uma URI na extensão SAN do certificado, ou seja, o certificado do servidor tem que conter essa extensão com esse identificador.
 
   1. `Bucket.yaml`
@@ -54,7 +54,7 @@ O projeto foi realizado utilizando Debian 13 Trixie logo o binário do `aws_sign
   4. `AuditAdminRole.yaml`
   5. `Bucket-policies.yaml`
 
-- Modifique o `config` passando os caminhos corretos e os arns.
+- Modifique o `config` passando os caminhos corretos e os arns. Ele contém por padrão um parâmetro para certificados intermediários, mas caso use a CA raiz diretamente, pode remover.
 - Insira o nome dos buckets no `logsync.service`.
 - Execute o `deploy.sh`.
 - Inicie e habilite a unidade `logsync.timer`.
