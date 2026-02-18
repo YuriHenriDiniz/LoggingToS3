@@ -35,16 +35,18 @@ Resources:
           Statement:
             - Sid: DenyBucketAccess
               Effect: Deny
-              NotPrincipal:
-                AWS:
-                  - !Ref AuditAdminArn
-                  - !Ref RsyslogRoleArn
-                  - !Ref AuditRoleArn
+              Principal: "*"
               Action: "s3:*"
               Resource:
                 - !Sub "arn:aws:s3:::${LoggingBucket}"
                 - !Sub "arn:aws:s3:::${LoggingBucket}/*"
-  
+              Condition:
+                StringNotEquals:
+                  aws:PrincipalARN:
+                    - !Ref AuditAdminArn
+                    - !Ref RsyslogRoleArn
+                    - !Ref AuditRoleArn
+                    
             - Sid: DenyInsecureTransport
               Effect: Deny
               Principal: "*"
@@ -99,15 +101,17 @@ Resources:
           Statement:
             - Sid: DenyBucketAccess
               Effect: Deny
-              NotPrincipal:
-                AWS:
-                  - !Ref AuditAdminArn
-                  - !Ref RsyslogRoleArn
-                  - !Ref AuditRoleArn
+              Principal: "*"
               Action: "s3:*"
               Resource:
-                - !Sub "arn:aws:s3:::${LoggingBucketSrt}"
-                - !Sub "arn:aws:s3:::${LoggingBucketSrt}/*"
+                - !Sub "arn:aws:s3:::${LoggingBucket}"
+                - !Sub "arn:aws:s3:::${LoggingBucket}/*"
+              Condition:
+                StringNotEquals:
+                  aws:PrincipalARN:
+                    - !Ref AuditAdminArn
+                    - !Ref RsyslogRoleArn
+                    - !Ref AuditRoleArn
   
             - Sid: DenyInsecureTransport
               Effect: Deny
