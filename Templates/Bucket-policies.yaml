@@ -104,8 +104,8 @@ Resources:
               Principal: "*"
               Action: "s3:*"
               Resource:
-                - !Sub "arn:aws:s3:::${LoggingBucket}"
-                - !Sub "arn:aws:s3:::${LoggingBucket}/*"
+                - !Sub "arn:aws:s3:::${LoggingBucketSrt}"
+                - !Sub "arn:aws:s3:::${LoggingBucketSrt}/*"
               Condition:
                 StringNotEquals:
                   aws:PrincipalARN:
